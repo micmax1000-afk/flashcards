@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Flashcards App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- TEMA -->
+  <button id="theme-toggle" class="theme-btn">🌓</button>
+
+  <!-- HOME -->
+  <div id="home" class="screen">
+    <h1>Flashcards</h1>
+    <p>Scegli un mazzo per iniziare</p>
+    <div id="deck-list"></div>
+  </div>
+
+  <!-- TRAINER -->
+  <div id="trainer" class="screen hidden">
+    <button id="back" class="back-btn">← Torna ai mazzi</button>
+
+    <h2 id="deck-title"></h2>
+
+    <div id="card" class="card">
+      <div class="front"></div>
+      <div class="back"></div>
+    </div>
+
+    <div class="buttons">
+      <button id="know">So</button>
+      <button id="dontknow">Non so</button>
+    </div>
+
+    <button id="quiz-mode" class="quiz-btn">Modalità Quiz</button>
+  </div>
+
+  <!-- STATISTICHE -->
+  <div id="stats" class="screen hidden">
+    <button id="stats-back" class="back-btn">← Torna</button>
+    <h2>Statistiche</h2>
+    <p id="total-cards"></p>
+    <p id="known-cards"></p>
+    <p id="accuracy"></p>
+  </div>
+
+  <!-- SCRIPT -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
