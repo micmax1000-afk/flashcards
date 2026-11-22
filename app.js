@@ -474,11 +474,10 @@ function renderQuiz(c) {
   let existingQuiz = cardEl.querySelector(".quiz-options");
   if (existingQuiz) existingQuiz.remove();
 
-  const others = state.deck.cards.filter((x) => x !== c);
-  const distractors = shuffledIndices(others.length)
-    .slice(0, 3)
-    .map((i) => others[i].back);
-  const options = shuffleArray([c.back, ...distractors]);
+  const others = state.deck.cards.filter((x) => x.back !== c.back);
+  const uniqueBacks = Array.from(new Set(others.map(x => x.back)));
+  const shuffledDistractors = shuffleArray(uniqueBacks).slice(0, 3);
+  const options = shuffleArray([c.back, ...shuffledDistractors]);
 
   const wrap = document.createElement("div");
   wrap.className = "quiz-options";
@@ -486,7 +485,8 @@ function renderQuiz(c) {
     const b = document.createElement("button");
     b.className = "quiz-option";
     b.textContent = opt;
-    b.addEventListener("click", () => handleQuizAnswer(b, opt === c.back));
+    b.setAttribute("aria-label", "Opzione: " + opt);
+    b.addEventListener("click", () => handleQuizAnswer(b, opt === c.back, c.back));
     wrap.appendChild(b);
   });
   cardEl.appendChild(wrap);
@@ -505,12 +505,27 @@ function advanceAfterAnswer(idx, correct) {
   showCard();
 }
 
-function handleQuizAnswer(btn, correct) {
+function handleQuizAnswer(btn, correct, correctText) {
   if (state.answered) return;
   state.answered = true;
-  btn.classList.add(correct ? "correct" : "wrong");
+  
+  const optionsContainer = cardEl.querySelector(".quiz-options");
+  if (!correct) {
+    btn.classList.add("wrong");
+    if (optionsContainer) {
+      const allBtns = optionsContainer.querySelectorAll(".quiz-option");
+      allBtns.forEach(b => {
+        if (b.textContent === correctText) {
+          b.classList.add("correct");
+        }
+      });
+    }
+  } else {
+    btn.classList.add("correct");
+  }
+  
   const idx = currentIndex();
-  setTimeout(() => advanceAfterAnswer(idx, correct), 700);
+  setTimeout(() => advanceAfterAnswer(idx, correct), 900);
 }
 
 knowBtn.addEventListener("click", () => advanceAfterAnswer(currentIndex(), true));
