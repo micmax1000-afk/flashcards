@@ -22,7 +22,11 @@ const safeStorage = {
   setItem(key, value) {
     try {
       window.localStorage.setItem(key, value);
-    } catch {
+    } catch (e) {
+      if (e.name === "QuotaExceededError" || e.name === "NS_ERROR_DOM_QUOTA_REACHED") {
+        // Spazio pieno: prova a liberare qualcosa, poi salva in memoria come fallback
+        try { window.localStorage.clear(); } catch {}
+      }
       memoryStore[key] = value;
     }
   },
