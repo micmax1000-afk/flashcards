@@ -425,6 +425,8 @@ body {
   transform: rotateY(180deg);
   flex-direction: column;
   gap: 10px;
+  background: var(--ink);
+  color: var(--paper);
 }
 
 .card.flipped .front {
