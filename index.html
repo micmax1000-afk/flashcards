@@ -30,6 +30,20 @@
     <h1>Flashcards</h1>
     <p>Scegli un mazzo per iniziare</p>
     <div id="deck-list"></div>
+
+    <!-- STRUMENTI PROGRESSI -->
+    <div id="tools" class="tools-card">
+      <h3>Strumenti</h3>
+      <div class="tools-row">
+        <button id="btn-export" class="tools-btn">Esporta progressi</button>
+        <button id="btn-reset" class="tools-btn btn-danger">Reset progressi</button>
+      </div>
+      <div class="tools-import">
+        <label for="import-file">Importa da file JSON:</label>
+        <input type="file" id="import-file" accept=".json">
+      </div>
+      <p id="tools-hint" class="tools-hint">I dati restano sul tuo dispositivo: nulla viene inviato a server esterni.</p>
+    </div>
   </div>
 
   <!-- TRAINER -->
@@ -62,6 +76,7 @@
 
   <!-- SCRIPT -->
   <script src="data.js"></script>
+  <script src="progress-utils.js"></script>
   <script src="app.js"></script>
 
   <!-- Registrazione Service Worker -->
