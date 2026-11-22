@@ -647,8 +647,8 @@ body {
   transform: rotateY(180deg);
 }
 
-.card-front,
-.card-back {
+.card .front,
+.card .back {
   position: absolute;
   inset: 0;
   backface-visibility: hidden;
@@ -662,27 +662,27 @@ body {
   border: 1px solid var(--line);
 }
 
-.card-front {
+.card .front {
   background: var(--paper-raised);
   color: var(--text);
 }
 
-.card-back {
+.card .back {
   background: var(--ink);
   color: var(--paper);
   transform: rotateY(180deg);
 }
 
-.card-front h2,
-.card-back h2 {
+.card .front h2,
+.card .back h2 {
   font-family: "Fraunces", serif;
   font-size: 22px;
   margin: 0 0 10px;
   line-height: 1.2;
 }
 
-.card-front p,
-.card-back p {
+.card .front p,
+.card .back p {
   font-size: 17px;
   margin: 0;
   text-align: center;
