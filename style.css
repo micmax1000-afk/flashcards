@@ -422,7 +422,7 @@ body {
   font-size: 40px;
   font-weight: 700;
   color: var(--ink);
-  transform: rotateY(-180deg);
+  transform: rotateY(180deg);
   flex-direction: column;
   gap: 10px;
 }
