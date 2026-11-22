@@ -469,7 +469,7 @@ function renderQuiz(c) {
   document.querySelector(".buttons").classList.add("hidden");
   frontEl.innerHTML = `${c.emoji ? `<span class="card-emoji">${c.emoji}</span>` : ""}${c.front}`;
   backEl.innerHTML = "";
-  cardEl.classList.add("flipped"); // il fronte con la domanda resta sempre visibile
+  cardEl.classList.remove("flipped"); // La card resta dritta sul fronte
 
   let existingQuiz = cardEl.querySelector(".quiz-options");
   if (existingQuiz) existingQuiz.remove();
@@ -490,7 +490,7 @@ function renderQuiz(c) {
     wrap.appendChild(b);
   });
   cardEl.appendChild(wrap);
-}
+
 
 function advanceAfterAnswer(idx, correct) {
   recordAnswer(state.deck.id, idx, correct);
