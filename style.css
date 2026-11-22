@@ -593,13 +593,20 @@ body {
 /* ---------- Stati vuoti e utilità ---------- */
 .empty-state {
   text-align: center;
-  padding: 40px 16px;
+  padding: 56px 20px;
   color: var(--text-soft);
 }
 
 .empty-state p {
   font-size: 15px;
-  margin: 8px 0 22px;
+  margin: 10px 0 26px;
+  line-height: 1.5;
+}
+
+.empty-icon {
+  font-size: 48px;
+  margin-bottom: 14px;
+  opacity: 0.6;
 }
 
 .screen {
@@ -615,6 +622,136 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* ---------- Card trainer con effetto flip 3D ---------- */
+.card-wrap {
+  perspective: 1000px;
+  width: 100%;
+  height: 260px;
+  position: relative;
+  margin: 16px 0;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border-radius: var(--radius);
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-shadow: 0 8px 24px var(--shadow);
+  border: 1px solid var(--line);
+}
+
+.card-front {
+  background: var(--paper-raised);
+  color: var(--text);
+}
+
+.card-back {
+  background: var(--ink);
+  color: var(--paper);
+  transform: rotateY(180deg);
+}
+
+.card-front h2,
+.card-back h2 {
+  font-family: "Fraunces", serif;
+  font-size: 22px;
+  margin: 0 0 10px;
+  line-height: 1.2;
+}
+
+.card-front p,
+.card-back p {
+  font-size: 17px;
+  margin: 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.card-hint {
+  position: absolute;
+  bottom: 12px;
+  font-size: 12px;
+  color: var(--text-soft);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ---------- Progress bar ---------- */
+.progress-wrap {
+  margin: 14px 0 6px;
+  font-size: 12px;
+  color: var(--text-soft);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.progress-bar {
+  height: 7px;
+  background: color-mix(in srgb, var(--line) 60%, transparent);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--correct));
+  border-radius: 4px;
+  width: 0%;
+  transition: width 0.5s ease;
+}
+
+/* ---------- Risposta rapida ---------- */
+.answer-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid var(--line);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.answer-chip.correct {
+  color: var(--correct);
+  border-color: var(--correct);
+  background: color-mix(in srgb, var(--correct) 12%, transparent);
+}
+
+.answer-chip.wrong {
+  color: var(--wrong);
+  border-color: var(--wrong);
+  background: color-mix(in srgb, var(--wrong) 12%, transparent);
+}
+
+.answer-chip:active {
+  transform: scale(0.95);
 }
 
 /* ---------- Mobile ---------- */
