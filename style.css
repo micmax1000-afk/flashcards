@@ -346,7 +346,6 @@ body {
   position: relative;
   width: 100%;
   height: 260px;
-  perspective: 1200px;
   cursor: grab;
   margin-bottom: 22px;
   touch-action: pan-y;
