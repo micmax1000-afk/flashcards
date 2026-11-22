@@ -62,15 +62,28 @@ body {
   position: fixed;
   top: 16px;
   right: 16px;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  border: 1px solid var(--line);
+  border: 1.5px solid var(--line);
   background: var(--paper-raised);
-  font-size: 18px;
+  color: var(--ink);
+  font-size: 20px;
   cursor: pointer;
-  box-shadow: 0 2px 6px var(--shadow);
+  box-shadow: 0 4px 10px var(--shadow);
   z-index: 10;
+  display: grid;
+  place-items: center;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.3s ease;
+}
+
+.theme-btn:active {
+  transform: scale(0.92);
+}
+
+.theme-btn:hover {
+  box-shadow: 0 6px 14px var(--shadow);
+  border-color: var(--accent);
 }
 
 /* ---------- Home ---------- */
@@ -464,7 +477,7 @@ body {
 .quiz-btn,
 .stats-btn {
   flex: 1;
-  padding: 13px;
+  padding: 14px;
   border-radius: 10px;
   border: 1px solid var(--line);
   background: var(--paper-raised);
@@ -473,7 +486,35 @@ body {
   font-size: 14.5px;
   cursor: pointer;
   color: var(--text);
-  box-shadow: 0 3px 0 var(--shadow);
+  box-shadow: 0 4px 0 var(--shadow);
+  transition: transform 0.1s ease, box-shadow 0.15s ease, filter 0.2s ease;
+}
+
+.buttons button:active,
+.quiz-btn:active,
+.stats-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--shadow);
+}
+
+#know {
+  color: var(--correct);
+  border-color: var(--correct);
+  background: color-mix(in srgb, var(--correct) 12%, transparent);
+}
+
+#dontknow {
+  color: var(--wrong);
+  border-color: var(--wrong);
+  background: color-mix(in srgb, var(--wrong) 12%, transparent);
+}
+
+#know:active {
+  filter: brightness(1.15);
+}
+
+#dontknow:active {
+  filter: brightness(1.15);
 }
 
 #dontknow {
@@ -489,10 +530,11 @@ body {
 .quiz-btn,
 .stats-btn {
   width: 100%;
-  margin-top: 4px;
+  margin-top: 8px;
   background: var(--ink);
   color: var(--paper);
   border: none;
+  letter-spacing: 0.02em;
 }
 
 /* ---------- Quiz options ---------- */
@@ -548,6 +590,33 @@ body {
   font-weight: 500;
 }
 
+/* ---------- Stati vuoti e utilità ---------- */
+.empty-state {
+  text-align: center;
+  padding: 40px 16px;
+  color: var(--text-soft);
+}
+
+.empty-state p {
+  font-size: 15px;
+  margin: 8px 0 22px;
+}
+
+.screen {
+  animation: screenFade 0.28s ease both;
+}
+
+@keyframes screenFade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* ---------- Mobile ---------- */
 @media (max-width: 380px) {
   #home h1 {
@@ -575,11 +644,97 @@ body {
   background: var(--paper-raised);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 16px;
-  margin-top: 22px;
+  padding: 18px 20px;
+  margin-top: 24px;
   width: 100%;
   max-width: 480px;
+  box-shadow: 0 6px 0 var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.tools-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--correct));
+}
+
+.tools-card h3 {
+  margin: 0 0 14px;
+  font-family: "Fraunces", serif;
+  font-size: 19px;
+  letter-spacing: -0.01em;
+}
+
+.tools-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.tools-btn {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--paper-raised);
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  color: var(--text);
   box-shadow: 0 3px 0 var(--shadow);
+  transition: transform 0.1s ease, box-shadow 0.15s ease, border-color 0.2s ease;
+}
+
+.tools-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--shadow);
+}
+
+.tools-btn.btn-danger {
+  color: var(--wrong);
+  border-color: var(--wrong);
+  background: color-mix(in srgb, var(--wrong) 10%, transparent);
+}
+
+.tools-import {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tools-import label {
+  font-size: 12px;
+  color: var(--text-soft);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.tools-import input {
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: 1.5px solid var(--line);
+  background: var(--paper);
+  color: var(--text);
+  font-size: 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tools-import input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+.tools-hint {
+  margin: 12px 0 0;
+  font-size: 11.5px;
+  color: var(--text-soft);
+  line-height: 1.5;
 }
 
 .tools-card h3 {
