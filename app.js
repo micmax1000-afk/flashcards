@@ -31,20 +31,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Aggiorna UI toggle auto-audio
   function updateAutoAudioUI() {
+    if (!btnAutoAudio) return;
     btnAutoAudio.classList.toggle("active", autoAudioEnabled);
     btnAutoAudio.setAttribute("aria-pressed", autoAudioEnabled);
     btnAutoAudio.title = autoAudioEnabled
-      ? "Auto-audio ATTIVO — clicca per disattivare"
-      : "Auto-audio SPENTO — clicca per attivare";
+      ? "Audio automatico ATTIVO — la pronuncia parte quando giri la carta"
+      : "Audio automatico DISATTIVATO — clicca per attivare";
+    btnAutoAudio.textContent = autoAudioEnabled ? "🔊 Auto" : "🔈 Auto";
   }
 
-  // Carica preferenza da localStorage
+  // Carica preferenza da localStorage (DEFAULT: true / ATTIVO)
   function loadAutoAudioPref() {
     try {
       const pref = localStorage.getItem("flashcards-auto-audio");
+      if (pref === null) return true; // Di default attivo!
       return pref === "true";
     } catch {
-      return false; // default: spento
+      return true; // default attivo
     }
   }
 
@@ -53,7 +56,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
       localStorage.setItem("flashcards-auto-audio", enabled);
     } catch {
-      // ignora errori (privacy mode, quota exceeded, etc.)
+      // ignora errori
     }
   }
 
@@ -66,22 +69,25 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = lang || "it-IT";
-    utterance.rate = 0.95; // leggermente più lento per chiarezza
+    utterance.rate = 0.95; // ritmo di lettura chiaro
     utterance.pitch = 1;
     utterance.volume = 1;
 
-    // Su alcuni browser mobile serve interazione utente prima di speak()
-    // Qui l'utente ha già cliccato per girare la carta o cambiare carta
     window.speechSynthesis.speak(utterance);
   }
 
-  // Auto-audio: parla il lato corrente della carta
-  function autoSpeakCurrentCard() {
-    if (!autoAudioEnabled || !currentDeck) return;
+  // Pronuncia il retro della carta (traduzione nella lingua di destinazione)
+  function speakBackCard() {
+    if (!currentDeck) return;
     const card = currentDeck.cards[currentIndex];
-    const textToSpeak = isFlipped ? card.back : card.front;
-    const lang = isFlipped ? currentDeck.lang : "it-IT";
-    speakText(textToSpeak, lang);
+    speakText(card.back, currentDeck.lang);
+  }
+
+  // Pronuncia il fronte della carta (italiano)
+  function speakFrontCard() {
+    if (!currentDeck) return;
+    const card = currentDeck.cards[currentIndex];
+    speakText(card.front, "it-IT");
   }
 
   // Mostra loading iniziale
@@ -101,12 +107,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     deckMetadata.forEach((meta) => {
       const card = document.createElement("div");
       card.className = "deck-card";
+      card.dataset.langId = meta.id;
       card.innerHTML = `
         <div class="deck-info">
           <span class="deck-flag">${meta.flag}</span>
           <div class="deck-title">
             <h3>${meta.name}</h3>
-            <span>Caricamento...</span>
+            <span>Tocca per allenarti</span>
           </div>
         </div>
         <div class="deck-arrow">›</div>
@@ -149,6 +156,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   function loadCard() {
     if (!currentDeck || currentDeck.cards.length === 0) return;
 
+    // Quando carica una nuova carta si parte sempre dal fronte
     isFlipped = false;
     flashcardEl.classList.remove("flipped");
     answerButtons.classList.add("hidden");
@@ -164,32 +172,37 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     progressText.textContent = `Carta ${currentIndex + 1} di ${currentDeck.cards.length}`;
     progressFill.style.width = `${((currentIndex + 1) / currentDeck.cards.length) * 100}%`;
-
-    // Auto-audio sul fronte della carta (nuova carta caricata)
-    autoSpeakCurrentCard();
   }
 
-  // Click sulla carta per girarla
+  // CLICK SULLA CARTA: Girala e pronuncia AUTOMATICAMENTE la traduzione se autoAudio è attivo
   flashcardEl.addEventListener("click", () => {
     isFlipped = !isFlipped;
     if (isFlipped) {
       flashcardEl.classList.add("flipped");
       answerButtons.classList.remove("hidden");
-      // Auto-audio sul retro (traduzione)
-      autoSpeakCurrentCard();
+
+      // Quando si gira la carta sul retro, riproduce in AUTOMATICO la voce nella lingua straniera
+      if (autoAudioEnabled) {
+        // Piccolo ritardo di 150ms per sincronizzare la pronuncia con l'animazione della rotazione
+        setTimeout(() => {
+          if (isFlipped) speakBackCard();
+        }, 150);
+      }
     } else {
       flashcardEl.classList.remove("flipped");
       answerButtons.classList.add("hidden");
+      // Se si rigira sul fronte e l'auto-audio è attivo, cancella pronunce in corso
+      if (window.speechSynthesis) window.speechSynthesis.cancel();
     }
   });
 
-  // Pulsante So
+  // Pulsante "So"
   btnKnow.addEventListener("click", (e) => {
     e.stopPropagation();
     nextCard();
   });
 
-  // Pulsante Non so
+  // Pulsante "Non so"
   btnDontKnow.addEventListener("click", (e) => {
     e.stopPropagation();
     const card = currentDeck.cards.splice(currentIndex, 1)[0];
@@ -207,28 +220,34 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  // Pronuncia manuale (pulsante 🔊)
+  // Pronuncia manuale (pulsante 🔊 nell'header)
   btnAudio.addEventListener("click", () => {
     if (!currentDeck) return;
-    const card = currentDeck.cards[currentIndex];
-    const textToSpeak = isFlipped ? card.back : card.front;
-    const lang = isFlipped ? currentDeck.lang : "it-IT";
-    speakText(textToSpeak, lang);
-  });
-
-  // Toggle auto-audio
-  btnAutoAudio.addEventListener("click", () => {
-    autoAudioEnabled = !autoAudioEnabled;
-    saveAutoAudioPref(autoAudioEnabled);
-    updateAutoAudioUI();
-
-    // Se attivo e siamo su una carta, parla subito il lato corrente
-    if (autoAudioEnabled) {
-      autoSpeakCurrentCard();
+    if (isFlipped) {
+      speakBackCard();
+    } else {
+      speakFrontCard();
     }
   });
 
-  btnBack.addEventListener("click", goHome);
+  // Toggle On/Off dell'audio automatico al flip
+  if (btnAutoAudio) {
+    btnAutoAudio.addEventListener("click", () => {
+      autoAudioEnabled = !autoAudioEnabled;
+      saveAutoAudioPref(autoAudioEnabled);
+      updateAutoAudioUI();
+
+      // Se l'utente lo attiva mentre la carta è già girata sul retro, la legge subito
+      if (autoAudioEnabled && isFlipped) {
+        speakBackCard();
+      }
+    });
+  }
+
+  btnBack.addEventListener("click", () => {
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    goHome();
+  });
 
   function goHome() {
     trainerScreen.classList.add("hidden");
@@ -236,6 +255,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     currentDeck = null;
   }
 
-  // Inizializza UI toggle
+  // Inizializza UI del pulsante auto-audio
   updateAutoAudioUI();
 });
