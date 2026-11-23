@@ -3034,13 +3034,6 @@ const DECKS = [
       { front: "Hai capito la lezione?", back: "As-tu compris la leçon ?", emoji: "📚" },
       { front: "Posso avere una proroga?", back: "Puis-je avoir un délai supplémentaire ?" },
     ],
-  },
-  {
-    id: "de",
-    name: "Tedesco",
-    flag: "🇩🇪",
-    lang: "de-DE",
-    cards: [
       { front: "madre", back: "Mutter", emoji: "👩" },
       { front: "padre", back: "Vater", emoji: "👨" },
       { front: "figlio", back: "Sohn", emoji: "👦" },
@@ -4045,5 +4038,4 @@ const DECKS = [
       { front: "Hai capito la lezione?", back: "Hast du den Stoff verstanden?", emoji: "📚" },
       { front: "Posso avere una proroga?", back: "Kann ich eine Verlängerung bekommen?" },
     ],
-  },
 ];
