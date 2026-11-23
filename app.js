@@ -172,6 +172,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     progressText.textContent = `Carta ${currentIndex + 1} di ${currentDeck.cards.length}`;
     progressFill.style.width = `${((currentIndex + 1) / currentDeck.cards.length) * 100}%`;
+
+    // Audio automatico sul fronte (italiano) se abilitato
+    if (autoAudioEnabled) {
+      // Piccolo ritardo per permettere al browser di elaborare l'interazione utente
+      setTimeout(() => {
+        if (!isFlipped) speakFrontCard();
+      }, 150);
+    }
   }
 
   // CLICK SULLA CARTA: Girala e pronuncia AUTOMATICAMENTE la traduzione se autoAudio è attivo
