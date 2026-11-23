@@ -3041,8 +3041,6 @@ const DECKS = [
     flag: "🇩🇪",
     lang: "de-DE",
     cards: [
-      { front: "agosto", back: "August" },
-      { front: "agosto", back: "August" },
       { front: "settembre", back: "September" },
       { front: "ottobre", back: "Oktober" },
       { front: "novembre", back: "November" },
