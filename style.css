@@ -114,6 +114,11 @@ body {
   font-size: 1.1rem;
   font-weight: 700;
 }
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 .icon-btn {
   background: var(--card-bg);
   border: 1px solid var(--border);
@@ -124,9 +129,18 @@ body {
   color: var(--text);
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+  transition: background 0.2s, border-color 0.2s, transform 0.1s;
 }
 .icon-btn:active {
   transform: scale(0.95);
+}
+.icon-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+.icon-btn.active:active {
+  background: var(--accent-hover);
 }
 
 /* Flashcard 3D */
