@@ -3041,8 +3041,6 @@ const DECKS = [
     flag: "🇩🇪",
     lang: "de-DE",
     cards: [
-      { front: "parco", back: "Park", emoji: "🏞️" },
-      { front: "parco", back: "Park", emoji: "🏞️" },
       { front: "mercato", back: "Markt", emoji: "🛒" },
       { front: "farmacia", back: "Apotheke", emoji: "💊" },
       { front: "banca", back: "Bank", emoji: "🏦" },
