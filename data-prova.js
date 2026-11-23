@@ -8,7 +8,7 @@ const DECKS = [
     flag: "🇬🇧",
     lang: "en-US",
     cards: [
-      { front: "madre", back: "mother", phon: "/ˈmʌðə/", emoji: "👩" },
+      { front: "madre", back: "mum", phon: "/ˈmʌðə/", emoji: "👩" },
       { front: "padre", back: "father", phon: "/ˈfɑːðə/", emoji: "👨" },
       { front: "figlio", back: "son", emoji: "👦" },
       { front: "figlia", back: "daughter", phon: "/ˈdɔːtə/", emoji: "👧" },
