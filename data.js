@@ -1,4 +1,4 @@
-// data.js — Mazzi multilingua per Flashcards
+// data.js — Mazzi multilingua ricchi per Flashcards
 const DECKS = [
   {
     id: "en",
@@ -20,7 +20,22 @@ const DECKS = [
       { front: "bere", back: "to drink", phon: "/tuː drɪŋk/", emoji: "🥤" },
       { front: "dormire", back: "to sleep", phon: "/tuː sliːp/", emoji: "😴" },
       { front: "lavoro", back: "work", phon: "/wɜːrk/", emoji: "💼" },
-      { front: "scuola", back: "school", phon: "/skuːl/", emoji: "🏫" }
+      { front: "scuola", back: "school", phon: "/skuːl/", emoji: "🏫" },
+      { front: "madre", back: "mother", phon: "/ˈmʌðər/", emoji: "👩" },
+      { front: "padre", back: "father", phon: "/ˈfɑːðər/", emoji: "👨" },
+      { front: "fratello", back: "brother", phon: "/ˈbrʌðər/", emoji: "👦" },
+      { front: "sorella", back: "sister", phon: "/ˈsɪstər/", emoji: "👧" },
+      { front: "cane", back: "dog", phon: "/dɔːɡ/", emoji: "🐕" },
+      { front: "gatto", back: "cat", phon: "/kæt/", emoji: "🐈" },
+      { front: "macchina", back: "car", phon: "/kɑːr/", emoji: "🚗" },
+      { front: "città", back: "city", phon: "/ˈsɪti/", emoji: "🏙️" },
+      { front: "tempo / meteo", back: "weather", phon: "/ˈwɛðər/", emoji: "🌤️" },
+      { front: "denaro", back: "money", phon: "/ˈmʌni/", emoji: "💰" },
+      { front: "tempo / ora", back: "time", phon: "/taɪm/", emoji: "⏰" },
+      { front: "giorno", back: "day", phon: "/deɪ/", emoji: "📅" },
+      { front: "notte", back: "night", phon: "/naɪt/", emoji: "🌙" },
+      { front: "anno", back: "year", phon: "/jɪər/", emoji: "📆" },
+      { front: "mondo", back: "world", phon: "/wɜːrld/", emoji: "🌍" }
     ]
   },
   {
@@ -43,7 +58,22 @@ const DECKS = [
       { front: "bere", back: "boire", phon: "/bwaʁ/", emoji: "🥤" },
       { front: "dormire", back: "dormir", phon: "/dɔʁ.miʁ/", emoji: "😴" },
       { front: "lavoro", back: "travail", phon: "/tʁa.vaj/", emoji: "💼" },
-      { front: "scuola", back: "école", phon: "/e.kɔl/", emoji: "🏫" }
+      { front: "scuola", back: "école", phon: "/e.kɔl/", emoji: "🏫" },
+      { front: "madre", back: "mère", phon: "/mɛʁ/", emoji: "👩" },
+      { front: "padre", back: "père", phon: "/pɛʁ/", emoji: "👨" },
+      { front: "fratello", back: "frère", phon: "/fʁɛʁ/", emoji: "👦" },
+      { front: "sorella", back: "sœur", phon: "/sœʁ/", emoji: "👧" },
+      { front: "cane", back: "chien", phon: "/ʃjɛ̃/", emoji: "🐕" },
+      { front: "gatto", back: "chat", phon: "/ʃa/", emoji: "🐈" },
+      { front: "macchina", back: "voiture", phon: "/vwa.tyʁ/", emoji: "🚗" },
+      { front: "città", back: "ville", phon: "/vil/", emoji: "🏙️" },
+      { front: "tempo / meteo", back: "temps", phon: "/tɑ̃/", emoji: "🌤️" },
+      { front: "denaro", back: "argent", phon: "/aʁ.ʒɑ̃/", emoji: "💰" },
+      { front: "tempo / ora", back: "heure", phon: "/œʁ/", emoji: "⏰" },
+      { front: "giorno", back: "jour", phon: "/ʒuʁ/", emoji: "📅" },
+      { front: "notte", back: "nuit", phon: "/nɥi/", emoji: "🌙" },
+      { front: "anno", back: "an", phon: "/ɑ̃/", emoji: "📆" },
+      { front: "mondo", back: "monde", phon: "/mɔ̃d/", emoji: "🌍" }
     ]
   },
   {
@@ -66,7 +96,22 @@ const DECKS = [
       { front: "bere", back: "trinken", phon: "/ˈtʁɪŋkn̩/", emoji: "🥤" },
       { front: "dormire", back: "schlafen", phon: "/ˈʃlaːfn̩/", emoji: "😴" },
       { front: "lavoro", back: "arbeit", phon: "/ˈaʁbaɪ̯t/", emoji: "💼" },
-      { front: "scuola", back: "schule", phon: "/ˈʃuːlə/", emoji: "🏫" }
+      { front: "scuola", back: "schule", phon: "/ˈʃuːlə/", emoji: "🏫" },
+      { front: "madre", back: "mutter", phon: "/ˈmʊtɐ/", emoji: "👩" },
+      { front: "padre", back: "vater", phon: "/ˈfaːtɐ/", emoji: "👨" },
+      { front: "fratello", back: "bruder", phon: "/ˈbʁuːdɐ/", emoji: "👦" },
+      { front: "sorella", back: "schwester", phon: "/ˈʃvɛstɐ/", emoji: "👧" },
+      { front: "cane", back: "hund", phon: "/hʊnt/", emoji: "🐕" },
+      { front: "gatto", back: "katze", phon: "/ˈkat͡sə/", emoji: "🐈" },
+      { front: "macchina", back: "auto", phon: "/ˈaʊto/", emoji: "🚗" },
+      { front: "città", back: "stadt", phon: "/ʃtat/", emoji: "🏙️" },
+      { front: "tempo / meteo", back: "wetter", phon: "/ˈvɛtɐ/", emoji: "🌤️" },
+      { front: "denaro", back: "geld", phon: "/ɡɛlt/", emoji: "💰" },
+      { front: "tempo / ora", back: "zeit", phon: "/tsaɪ̯t/", emoji: "⏰" },
+      { front: "giorno", back: "tag", phon: "/taːk/", emoji: "📅" },
+      { front: "notte", back: "nacht", phon: "/naxt/", emoji: "🌙" },
+      { front: "anno", back: "jahr", phon: "/jaːɐ̯/", emoji: "📆" },
+      { front: "mondo", back: "welt", phon: "/vɛlt/", emoji: "🌍" }
     ]
   },
   {
@@ -89,7 +134,22 @@ const DECKS = [
       { front: "bere", back: "beber", phon: "/beˈbeɾ/", emoji: "🥤" },
       { front: "dormire", back: "dormir", phon: "/doɾˈmiɾ/", emoji: "😴" },
       { front: "lavoro", back: "trabajo", phon: "/tɾaˈβaxo/", emoji: "💼" },
-      { front: "scuola", back: "escuela", phon: "/esˈkwe.la/", emoji: "🏫" }
+      { front: "scuola", back: "escuela", phon: "/esˈkwe.la/", emoji: "🏫" },
+      { front: "madre", back: "madre", phon: "/ˈmaðɾe/", emoji: "👩" },
+      { front: "padre", back: "padre", phon: "/ˈpaðɾe/", emoji: "👨" },
+      { front: "fratello", back: "hermano", phon: "/eɾˈmano/", emoji: "👦" },
+      { front: "sorella", back: "hermana", phon: "/eɾˈmana/", emoji: "👧" },
+      { front: "cane", back: "perro", phon: "/ˈpero/", emoji: "🐕" },
+      { front: "gatto", back: "gato", phon: "/ˈɡato/", emoji: "🐈" },
+      { front: "macchina", back: "coche", phon: "/ˈkotʃe/", emoji: "🚗" },
+      { front: "città", back: "ciudad", phon: "/sjuˈðað/", emoji: "🏙️" },
+      { front: "tempo / meteo", back: "tiempo", phon: "/ˈtjempo/", emoji: "🌤️" },
+      { front: "denaro", back: "dinero", phon: "/diˈneɾo/", emoji: "💰" },
+      { front: "tempo / ora", back: "tiempo", phon: "/ˈtjempo/", emoji: "⏰" },
+      { front: "giorno", back: "día", phon: "/ˈdi.a/", emoji: "📅" },
+      { front: "notte", back: "noche", phon: "/ˈnotʃe/", emoji: "🌙" },
+      { front: "anno", back: "año", phon: "/ˈaɲo/", emoji: "📆" },
+      { front: "mondo", back: "mundo", phon: "/ˈmundo/", emoji: "🌍" }
     ]
   }
 ];
