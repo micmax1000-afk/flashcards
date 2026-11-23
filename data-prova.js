@@ -3041,8 +3041,6 @@ const DECKS = [
     flag: "🇩🇪",
     lang: "de-DE",
     cards: [
-      { front: "vedere", back: "sehen", emoji: "👀" },
-      { front: "vedere", back: "sehen", emoji: "👀" },
       { front: "capire", back: "verstehen" },
       { front: "sapere", back: "wissen" },
       { front: "pensare", back: "denken", emoji: "💭" },
