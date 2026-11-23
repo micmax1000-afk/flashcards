@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
+  <rect width="180" height="180" fill="#3b82f6"/>
+  <rect x="30" y="38" width="120" height="104" rx="16" fill="white"/>
+  <rect x="30" y="38" width="120" height="104" rx="16" fill="none" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="90" y="102" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="64" font-weight="800" fill="#3b82f6" text-anchor="middle" dominant-baseline="central">F</text>
+  <path d="M120 38 L140 38 L120 58 Z" fill="#3b82f6" opacity="0.2"/>
+  <path d="M120 38 L140 38 L120 58 Z" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.5"/>
+</svg>
