@@ -59,11 +59,11 @@
   </div>
 
   <footer style="text-align:center; padding: 20px 0 10px; font-size: 0.8rem; color: var(--muted);">
-    Versione 2.5.0 — Mazzi completi
+    Versione 2.5.0 — Mazzi modulari con lazy-loading
   </footer>
 
-  <script src="data.js"></script>
-  <script src="app.js"></script>
+  <!-- App come ES Module -->
+  <script type="module" src="app.js"></script>
   <script>
     // Registra Service Worker
     if ('serviceWorker' in navigator) {
