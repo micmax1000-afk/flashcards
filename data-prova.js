@@ -2030,7 +2030,7 @@ const DECKS = [
     flag: "🇫🇷",
     lang: "fr-FR",
     cards: [
-      { front: "madre", back: "mère", emoji: "👩" },
+      { front: "madre", back: "maman", emoji: "👩" },
       { front: "padre", back: "père", emoji: "👨" },
       { front: "figlio", back: "fils", emoji: "👦" },
       { front: "figlia", back: "fille", emoji: "👧" },
