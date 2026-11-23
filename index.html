@@ -3,101 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <title>Flashcards</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="App di flashcards per imparare vocabolario con ripetizione dilazionata">
-  <meta name="theme-color" content="#c9a227">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="Flashcards">
-
-  <!-- PWA Manifest -->
-  <link rel="manifest" href="manifest.json">
-
-  <!-- Icons -->
-  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
-  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#3b82f6">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- TEMA -->
-  <button id="theme-toggle" class="theme-btn" aria-label="Cambia tema">🌓</button>
-
-  <!-- HOME -->
-  <div id="home" class="screen">
-    <h1>Flashcards</h1>
-    <p>Scegli un mazzo per iniziare</p>
-    <div id="deck-list"></div>
-
-    <!-- STRUMENTI PROGRESSI -->
-    <div id="tools" class="tools-card">
-      <h3>Strumenti</h3>
-      <div class="tools-row">
-        <button id="btn-export" class="tools-btn">Esporta progressi</button>
-        <button id="btn-reset" class="tools-btn btn-danger">Reset progressi</button>
-      </div>
-      <div class="tools-import">
-        <label for="import-file">Importa da file JSON:</label>
-        <input type="file" id="import-file" accept=".json">
-      </div>
-      <p id="tools-hint" class="tools-hint">I dati restano sul tuo dispositivo: nulla viene inviato a server esterni.</p>
-    </div>
+  <!-- Schermata Home / Selezione Mazzi -->
+  <div id="home-screen" class="screen">
+    <header class="app-header">
+      <h1>Flashcards 🌍</h1>
+      <p>Scegli la lingua e inizia ad allenarti</p>
+    </header>
+    <div id="deck-list" class="deck-grid"></div>
   </div>
 
-  <!-- TRAINER -->
-  <div id="trainer" class="screen hidden">
-    <button id="back" class="back-btn">← Torna ai mazzi</button>
+  <!-- Schermata Allenamento -->
+  <div id="trainer-screen" class="screen hidden">
+    <header class="trainer-header">
+      <button id="btn-back" class="icon-btn">← Home</button>
+      <h2 id="trainer-title">Mazzo</h2>
+      <button id="btn-audio" class="icon-btn" title="Ascolta pronuncia">🔊</button>
+    </header>
 
-    <h2 id="deck-title"></h2>
-
-    <div class="card-wrap">
-      <div id="card" class="card">
-        <div class="front"></div>
-        <div class="back"></div>
+    <div class="card-container">
+      <div id="flashcard" class="flashcard">
+        <div class="card-face card-front">
+          <span id="card-emoji" class="card-emoji"></span>
+          <div id="card-front-text" class="card-text"></div>
+          <span class="card-hint">Tocca per girare</span>
+        </div>
+        <div class="card-face card-back">
+          <div id="card-back-text" class="card-text"></div>
+          <div id="card-phon" class="card-phon"></div>
+          <span class="card-hint">Rispondi sotto</span>
+        </div>
       </div>
     </div>
 
-    <div class="buttons">
-      <button id="know">So</button>
-      <button id="dontknow">Non so</button>
+    <div class="trainer-controls">
+      <div class="progress-info">
+        <span id="progress-text">Carta 1 di 10</span>
+        <div class="progress-bar"><div id="progress-fill"></div></div>
+      </div>
+      <div id="answer-buttons" class="answer-row hidden">
+        <button id="btn-dontknow" class="btn btn-danger">🔴 Non so</button>
+        <button id="btn-know" class="btn btn-success">🟢 So</button>
+      </div>
     </div>
-
-    <button id="quiz-mode" class="quiz-btn">Modalità Quiz</button>
   </div>
 
-  <!-- STATISTICHE -->
-  <div id="stats" class="screen hidden">
-    <button id="stats-back" class="back-btn">← Torna</button>
-    <h2>Statistiche</h2>
-    <p id="total-cards"></p>
-    <p id="known-cards"></p>
-    <p id="accuracy"></p>
-  </div>
-
-  <!-- SCRIPT -->
   <script src="data.js"></script>
-  <script src="progress-utils.js"></script>
-  <script src="progress-init.js"></script>
   <script src="app.js"></script>
-  <!-- <script src="card-flip.js"></script> -->
-
-  <!-- Registrazione Service Worker -->
-  <script>
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker
-          .register("sw.js")
-          .then((reg) => {
-            console.log("Service Worker registrato:", reg.scope);
-          })
-          .catch((err) => {
-            console.warn("Registrazione SW fallita:", err);
-          });
-      });
-    }
-  </script>
-
 </body>
 </html>
