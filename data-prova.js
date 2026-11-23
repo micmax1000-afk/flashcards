@@ -3041,8 +3041,6 @@ const DECKS = [
     flag: "🇩🇪",
     lang: "de-DE",
     cards: [
-      { front: "montagna", back: "Berg", emoji: "⛰️" },
-      { front: "montagna", back: "Berg", emoji: "⛰️" },
       { front: "fiume", back: "Fluss" },
       { front: "albero", back: "Baum", emoji: "🌳" },
       { front: "fiore", back: "Blume", emoji: "🌸" },
