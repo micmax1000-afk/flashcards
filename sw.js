@@ -1,5 +1,5 @@
 /* Service Worker per Flashcards PWA */
-const CACHE_NAME = "flashcards-v1";
+const CACHE_NAME = "flashcards-v2";
 const ASSETS = [
   "/",
   "/index.html",
@@ -7,10 +7,10 @@ const ASSETS = [
   "/app.js",
   "/data.js",
   "/manifest.json",
-  "/icons/icon-192.png",
-  "/icons/icon-512.png",
-  "/icons/icon-512-maskable.png",
-  "/icons/apple-touch-icon.png"
+  "/icons/icon-192.svg",
+  "/icons/icon-512.svg",
+  "/icons/icon-512-maskable.svg",
+  "/icons/apple-touch-icon.svg"
 ];
 
 // Install: cache degli asset statici
