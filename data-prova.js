@@ -4045,4 +4045,5 @@ const DECKS = [
       { front: "Hai capito la lezione?", back: "Hast du den Stoff verstanden?", emoji: "📚" },
       { front: "Posso avere una proroga?", back: "Kann ich eine Verlängerung bekommen?" },
     ],
+  },
 ];
