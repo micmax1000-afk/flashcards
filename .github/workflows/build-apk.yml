@@ -25,11 +25,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Prepare icon for capacitor-assets
-        run: cp icons/icon-512.svg icon.svg
-
       - name: Generate app icons and splash screens
-        run: npx capacitor-assets generate --iconBackgroundColor '#3b82f6' --iconBackgroundColorDark '#1e40af'
+        run: npx capacitor-assets generate --icon icons/icon-512.svg --iconBackgroundColor '#3b82f6' --iconBackgroundColorDark '#1e40af'
 
       - name: Setup Java
         uses: actions/setup-java@v4
