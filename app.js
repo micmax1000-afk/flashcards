@@ -104,11 +104,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   function speakQuizPrompt() {
     if (!currentDeck) return;
     const q = quizQuestions[quizCurrentIndex];
-    if (q.type === "mc" || q.type === "input-it-to-lang") {
-      // Prompt is in Italian, answer in target language
+    // Per MC e Input: se promptLang è it-IT, parla in italiano, altrimenti nella lingua target
+    if (q.promptLang === "it-IT") {
       speakText(q.prompt, "it-IT");
     } else {
-      // Prompt is in target language, answer in Italian
       speakText(q.prompt, currentDeck.lang);
     }
   }
