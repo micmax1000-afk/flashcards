@@ -181,21 +181,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     const now = Date.now();
     
+    // SRS intervals in milliseconds: 1min, 10min, 1h, 6h, 1d, 3d, 7d, 14d, 30d, 90d
+    const intervals = [
+      60 * 1000,
+      10 * 60 * 1000,
+      60 * 60 * 1000,
+      6 * 60 * 60 * 1000,
+      24 * 60 * 60 * 1000,
+      3 * 24 * 60 * 60 * 1000,
+      7 * 24 * 60 * 60 * 1000,
+      14 * 24 * 60 * 60 * 1000,
+      30 * 24 * 60 * 60 * 1000,
+      90 * 24 * 60 * 60 * 1000
+    ];
+    
     if (known) {
-      // SRS intervals in milliseconds: 1min, 10min, 1h, 6h, 1d, 3d, 7d, 14d, 30d, 90d
-      const intervals = [
-        60 * 1000,
-        10 * 60 * 1000,
-        60 * 60 * 1000,
-        6 * 60 * 60 * 1000,
-        24 * 60 * 60 * 1000,
-        3 * 24 * 60 * 60 * 1000,
-        7 * 24 * 60 * 60 * 1000,
-        14 * 24 * 60 * 60 * 1000,
-        30 * 24 * 60 * 60 * 1000,
-        90 * 24 * 60 * 60 * 1000
-      ];
-      
       cardProgress.level = Math.min(cardProgress.level + 1, intervals.length - 1);
       cardProgress.nextReview = now + intervals[cardProgress.level];
       cardProgress.errors = 0;
