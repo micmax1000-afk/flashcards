@@ -1,0 +1,28 @@
+{
+  "name": "flashcards",
+  "version": "1.0.0",
+  "description": "App di flashcards per imparare vocabolario con ripetizione dilazionata",
+  "main": "app.js",
+  "scripts": {
+    "build": "echo 'No build step needed - static files'",
+    "cap:add": "cap add android",
+    "cap:copy": "cap copy android",
+    "cap:open": "cap open android",
+    "cap:sync": "cap sync android"
+  },
+  "keywords": [
+    "flashcards",
+    "language-learning",
+    "pwa",
+    "capacitor"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@capacitor/cli": "^6.1.0",
+    "@capacitor/core": "^6.1.0"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.1.0"
+  }
+}
