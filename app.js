@@ -71,6 +71,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   let isFlipped = false;
   let autoAudioEnabled = loadAutoAudioPref();
   
+  // SRS Progress per mazzo corrente
+  let currentProgress = {};
+  
   // Quiz state
   let quizMode = false; // false = flashcard, true = quiz
   let quizQuestions = [];
@@ -136,6 +139,87 @@ document.addEventListener("DOMContentLoaded", async () => {
     btnAutoAudio.title = autoAudioEnabled 
       ? "Auto-audio: ON (clicca per disattivare)" 
       : "Auto-audio: OFF (clicca per attivare)";
+  }
+
+  // ============ SRS PROGRESS ============
+  const PROGRESS_KEY = "flashcards_progress_v2";
+
+  function loadAllProgress() {
+    try {
+      const data = localStorage.getItem(PROGRESS_KEY);
+      return data ? JSON.parse(data) : {};
+    } catch {
+      return {};
+    }
+  }
+
+  function saveAllProgress(progress) {
+    try {
+      localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+    } catch {}
+  }
+
+  function loadDeckProgress(deckId) {
+    const all = loadAllProgress();
+    return all[deckId] || {};
+  }
+
+  function saveDeckProgress(deckId, progress) {
+    const all = loadAllProgress();
+    all[deckId] = progress;
+    saveAllProgress(all);
+  }
+
+  function getCardProgress(deckId, cardIndex) {
+    const deckProgress = loadDeckProgress(deckId);
+    return deckProgress[cardIndex] || { level: 0, nextReview: null, errors: 0 };
+  }
+
+  function updateCardProgress(deckId, cardIndex, known) {
+    const deckProgress = loadDeckProgress(deckId);
+    const cardProgress = deckProgress[cardIndex] || { level: 0, nextReview: null, errors: 0 };
+    
+    const now = Date.now();
+    
+    // SRS intervals in milliseconds: 1min, 10min, 1h, 6h, 1d, 3d, 7d, 14d, 30d, 90d
+    const intervals = [
+      60 * 1000,
+      10 * 60 * 1000,
+      60 * 60 * 1000,
+      6 * 60 * 60 * 1000,
+      24 * 60 * 60 * 1000,
+      3 * 24 * 60 * 60 * 1000,
+      7 * 24 * 60 * 60 * 1000,
+      14 * 24 * 60 * 60 * 1000,
+      30 * 24 * 60 * 60 * 1000,
+      90 * 24 * 60 * 60 * 1000
+    ];
+    
+    if (known) {
+      cardProgress.level = Math.min(cardProgress.level + 1, intervals.length - 1);
+      cardProgress.nextReview = now + intervals[cardProgress.level];
+      cardProgress.errors = 0;
+    } else {
+      // Reset level on error
+      cardProgress.level = 0;
+      cardProgress.nextReview = now + intervals[0];
+      cardProgress.errors = (cardProgress.errors || 0) + 1;
+    }
+    
+    deckProgress[cardIndex] = cardProgress;
+    saveDeckProgress(deckId, deckProgress);
+  }
+
+  function getDueCards(deckId, cards) {
+    const deckProgress = loadDeckProgress(deckId);
+    const now = Date.now();
+    
+    return cards.map((card, index) => ({
+      ...card,
+      index,
+      progress: deckProgress[index] || { level: 0, nextReview: null, errors: 0 },
+      isDue: !deckProgress[index] || (deckProgress[index].nextReview !== null && deckProgress[index].nextReview <= now)
+    })).filter(c => c.isDue);
   }
 
   // ============ NAVIGAZIONE SCHERMATE ============
@@ -220,9 +304,24 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
       currentDeck = await loadDeck(langId);
+      
+      // Carica progressi SRS per questo mazzo
+      currentProgress = loadDeckProgress(langId);
+      
+      // Filtra solo le carte da ripassare (due)
+      const dueCards = getDueCards(langId, currentDeck.cards);
+      
+      if (dueCards.length === 0) {
+        alert("Nessuna carta da ripassare ora! Torna più tardi. 🎉");
+        goHome();
+        return;
+      }
+      
+      // Usa solo le carte da ripassare
+      currentDeck.cards = dueCards;
       currentIndex = 0;
       isFlipped = false;
-      trainerTitle.textContent = `${currentDeck.flag} ${currentDeck.name}`;
+      trainerTitle.textContent = `${currentDeck.flag} ${currentDeck.name} (${dueCards.length} da ripassare)`;
 
       updateDeckCardCount(langId, currentDeck.cards.length);
       loadCard();
@@ -285,10 +384,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   function nextCard() {
     if (!currentDeck) return;
+    
+    // Salva progresso: l'utente conosceva la carta
+    const card = currentDeck.cards[currentIndex];
+    if (card && card.index !== undefined) {
+      updateCardProgress(currentDeck.id, card.index, true);
+    }
+    
     currentIndex++;
     if (currentIndex >= currentDeck.cards.length) {
       // Mazzo completato
-      alert("Complimenti! Hai completato il mazzo 🎉");
+      alert("Complimenti! Hai completato la sessione di ripasso 🎉");
       goHome();
       return;
     }
@@ -297,9 +403,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   function handleDontKnow() {
     if (!currentDeck) return;
+    
+    // Salva progresso: l'utente NON conosceva la carta
+    const card = currentDeck.cards[currentIndex];
+    if (card && card.index !== undefined) {
+      updateCardProgress(currentDeck.id, card.index, false);
+    }
+    
     // Sposta la carta corrente in fondo al mazzo per ripeterla
-    const card = currentDeck.cards.splice(currentIndex, 1)[0];
-    currentDeck.cards.push(card);
+    const cardObj = currentDeck.cards.splice(currentIndex, 1)[0];
+    currentDeck.cards.push(cardObj);
     loadCard();
   }
 
@@ -479,6 +592,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     const isCorrect = selectedIndex === q.correctIndex;
     
+    // Salva progresso SRS
+    if (q.card && q.card.index !== undefined && currentDeck) {
+      updateCardProgress(currentDeck.id, q.card.index, isCorrect);
+    }
+    
     if (isCorrect) {
       btn.classList.add("correct");
       quizScore++;
@@ -518,6 +636,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Confronto case-insensitive e ignorando accenti per flessibilità
     const normalize = (str) => str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     const isCorrect = normalize(userAnswer) === normalize(q.answer);
+    
+    // Salva progresso SRS
+    if (q.card && q.card.index !== undefined && currentDeck) {
+      updateCardProgress(currentDeck.id, q.card.index, isCorrect);
+    }
     
     if (isCorrect) {
       quizInputField.classList.add("correct");
