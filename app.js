@@ -1,6 +1,10 @@
 // app.js — Logica Flashcards multilingua con flip 3D, ripetizione, auto-audio e modalità Quiz (ES Module)
 
 import { getDeckMetadata, loadDeck } from "./data/index.js";
+import { Capacitor } from "@capacitor/core";
+import { TextToSpeech } from "@capacitor/text-to-speech";
+
+const isNative = Capacitor.isNativePlatform();
 
 document.addEventListener("DOMContentLoaded", async () => {
   // ============ ELEMENTI DOM ============
