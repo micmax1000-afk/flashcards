@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   function unlockAudio() {
     if (audioUnlocked) return;
-    // Riproduce un suono silenzioso per sbloccare speechSynthesis
+    // Riproduce un suono silenzioso per sbloccare speechSynthesis (web)
     const utterance = new SpeechSynthesisUtterance("");
     speechSynthesis.speak(utterance);
     audioUnlocked = true;
@@ -97,20 +97,41 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.removeEventListener("keydown", unlockAudio);
   }
 
-  // Sblocca audio alla prima interazione utente
-  document.addEventListener("click", unlockAudio, { once: true });
-  document.addEventListener("touchstart", unlockAudio, { once: true });
-  document.addEventListener("keydown", unlockAudio, { once: true });
+  // Sblocca audio alla prima interazione utente (solo web)
+  if (!isNative) {
+    document.addEventListener("click", unlockAudio, { once: true });
+    document.addEventListener("touchstart", unlockAudio, { once: true });
+    document.addEventListener("keydown", unlockAudio, { once: true });
+  }
 
   function speakText(text, lang) {
-    if (!("speechSynthesis" in window)) return;
+    if (!text) return;
     
-    // Se audio non ancora sbloccato, accoda e riprova dopo sblocco
-    if (!audioUnlocked) {
-      setTimeout(() => speakText(text, lang), 100);
-      return;
+    if (isNative) {
+      // Su Android/iOS usa il plugin nativo Capacitor TextToSpeech
+      TextToSpeech.speak({
+        text: text,
+        lang: lang,
+        rate: 0.95,
+        pitch: 1.0,
+        volume: 1.0
+      }).catch(err => {
+        console.error("TTS error:", err);
+        // Fallback a speechSynthesis se il plugin fallisce
+        fallbackSpeak(text, lang);
+      });
+    } else {
+      // Su web usa speechSynthesis con sblocco
+      if (!audioUnlocked) {
+        setTimeout(() => speakText(text, lang), 100);
+        return;
+      }
+      fallbackSpeak(text, lang);
     }
-    
+  }
+
+  function fallbackSpeak(text, lang) {
+    if (!("speechSynthesis" in window)) return;
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = lang;
     utterance.rate = 0.95;
