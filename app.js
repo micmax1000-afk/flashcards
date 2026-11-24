@@ -637,6 +637,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     const normalize = (str) => str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     const isCorrect = normalize(userAnswer) === normalize(q.answer);
     
+    // Salva progresso SRS
+    if (q.card && q.card.index !== undefined && currentDeck) {
+      updateCardProgress(currentDeck.id, q.card.index, isCorrect);
+    }
+    
     if (isCorrect) {
       quizInputField.classList.add("correct");
       quizScore++;
