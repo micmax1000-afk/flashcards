@@ -71,6 +71,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   let isFlipped = false;
   let autoAudioEnabled = loadAutoAudioPref();
   
+  // SRS Progress per mazzo corrente
+  let currentProgress = {};
+  
   // Quiz state
   let quizMode = false; // false = flashcard, true = quiz
   let quizQuestions = [];
