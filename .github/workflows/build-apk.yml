@@ -32,6 +32,23 @@ jobs:
           java-version: '17'
           cache: 'gradle'
 
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          api-level: 34
+          emulator: false
+
+      - name: Add Android platform
+        run: npx cap add android
+        env:
+          CI: true
+
+      - name: Copy web assets
+        run: npx cap copy android
+
+      - name: Sync Capacitor
+        run: npx cap sync android
+
       - name: Build Debug APK
         run: |
           cd android
