@@ -19,6 +19,10 @@
       "launchShowDuration": 2000,
       "backgroundColor": "#3b82f6",
       "showSpinner": false
+    },
+    "TextToSpeech": {
+      "lang": "it-IT",
+      "rate": 0.95
     }
   }
 }
