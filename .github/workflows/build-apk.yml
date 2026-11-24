@@ -32,6 +32,19 @@ jobs:
           java-version: '17'
           cache: 'gradle'
 
+      - name: Prepare web assets
+        run: |
+          mkdir -p www
+          cp index.html www/
+          cp app.js www/
+          cp style.css www/
+          cp manifest.json www/
+          cp progress-init.js www/
+          cp progress-utils.js www/
+          cp sw.js www/
+          cp -r data www/
+          cp -r icons www/
+
       - name: Add Android platform
         run: npx cap add android
         env:
