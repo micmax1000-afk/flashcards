@@ -174,11 +174,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     progressFill.style.width = `${((currentIndex + 1) / currentDeck.cards.length) * 100}%`;
 
     // Audio automatico sul fronte (italiano) se abilitato
-    if (autoAudioEnabled) {
-      // Piccolo ritardo per permettere al browser di elaborare l'interazione utente
-      setTimeout(() => {
-        if (!isFlipped) speakFrontCard();
-      }, 150);
+    // Chiamata diretta (senza setTimeout) per preservare il contesto di 'user gesture'
+    // necessario a SpeechSynthesis per l'autoplay
+    if (autoAudioEnabled && !isFlipped) {
+      speakFrontCard();
     }
   }
 
