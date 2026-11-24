@@ -83,8 +83,34 @@ document.addEventListener("DOMContentLoaded", async () => {
   let quizAnswered = false;
 
   // ============ UTILITÀ AUDIO ============
+  let audioUnlocked = false;
+
+  function unlockAudio() {
+    if (audioUnlocked) return;
+    // Riproduce un suono silenzioso per sbloccare speechSynthesis
+    const utterance = new SpeechSynthesisUtterance("");
+    speechSynthesis.speak(utterance);
+    audioUnlocked = true;
+    // Rimuove i listener dopo il primo sblocco
+    document.removeEventListener("click", unlockAudio);
+    document.removeEventListener("touchstart", unlockAudio);
+    document.removeEventListener("keydown", unlockAudio);
+  }
+
+  // Sblocca audio alla prima interazione utente
+  document.addEventListener("click", unlockAudio, { once: true });
+  document.addEventListener("touchstart", unlockAudio, { once: true });
+  document.addEventListener("keydown", unlockAudio, { once: true });
+
   function speakText(text, lang) {
     if (!("speechSynthesis" in window)) return;
+    
+    // Se audio non ancora sbloccato, accoda e riprova dopo sblocco
+    if (!audioUnlocked) {
+      setTimeout(() => speakText(text, lang), 100);
+      return;
+    }
+    
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = lang;
     utterance.rate = 0.95;
