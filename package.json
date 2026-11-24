@@ -25,6 +25,7 @@
     "@capacitor/assets": "^3.0.0"
   },
   "dependencies": {
-    "@capacitor/android": "^6.1.0"
+    "@capacitor/android": "^6.1.0",
+    "@capacitor/text-to-speech": "^6.0.0"
   }
 }
