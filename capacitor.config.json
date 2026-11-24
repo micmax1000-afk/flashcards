@@ -1,7 +1,7 @@
 {
   "appId": "com.flashcards.app",
   "appName": "Flashcards",
-  "webDir": ".",
+  "webDir": "www",
   "server": {
     "androidScheme": "https"
   },
