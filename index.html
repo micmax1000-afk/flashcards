@@ -23,7 +23,7 @@
     <div id="deck-list" class="deck-grid"></div>
   </div>
 
-  <!-- Schermata Allenamento -->
+  <!-- Schermata Allenamento Flashcard -->
   <div id="trainer-screen" class="screen hidden">
     <header class="trainer-header">
       <button id="btn-back" class="icon-btn">← Home</button>
@@ -31,6 +31,7 @@
       <div class="header-actions">
         <button id="btn-auto-audio" class="icon-btn" title="Auto-audio: pronuncia automatica ogni carta" aria-pressed="false">🔈</button>
         <button id="btn-audio" class="icon-btn" title="Ascolta pronuncia">🔊</button>
+        <button id="btn-mode-toggle" class="icon-btn" title="Cambia modalità: Flashcard ↔ Quiz" aria-pressed="false">🎯 Quiz</button>
       </div>
     </header>
 
@@ -61,8 +62,79 @@
     </div>
   </div>
 
+  <!-- Schermata Quiz -->
+  <div id="quiz-screen" class="screen hidden">
+    <header class="trainer-header">
+      <button id="btn-quiz-back" class="icon-btn">← Home</button>
+      <h2 id="quiz-title">Quiz</h2>
+      <div class="header-actions">
+        <button id="btn-quiz-audio" class="icon-btn" title="Ascolta pronuncia">🔊</button>
+        <button id="btn-quiz-mode-toggle" class="icon-btn" title="Cambia modalità: Quiz ↔ Flashcard" aria-pressed="true">🃏 Flashcard</button>
+      </div>
+    </header>
+
+    <div class="quiz-container">
+      <!-- Domanda a scelta multipla -->
+      <div id="quiz-mc" class="quiz-question hidden">
+        <div class="quiz-progress">
+          <span id="quiz-progress-text">Domanda 1 di 10</span>
+          <div class="progress-bar"><div id="quiz-progress-fill"></div></div>
+        </div>
+        <div class="quiz-score">Punteggio: <span id="quiz-score">0</span> / <span id="quiz-total">0</span></div>
+        
+        <div class="quiz-prompt" id="quiz-prompt"></div>
+        
+        <div id="quiz-options" class="quiz-options"></div>
+        
+        <div class="quiz-feedback hidden" id="quiz-feedback"></div>
+        
+        <div class="quiz-actions">
+          <button id="btn-quiz-next" class="btn btn-primary hidden">Avanti →</button>
+        </div>
+      </div>
+
+      <!-- Domanda a risposta libera (input testo) -->
+      <div id="quiz-input" class="quiz-question hidden">
+        <div class="quiz-progress">
+          <span id="quiz-input-progress-text">Domanda 1 di 10</span>
+          <div class="progress-bar"><div id="quiz-input-progress-fill"></div></div>
+        </div>
+        <div class="quiz-score">Punteggio: <span id="quiz-input-score">0</span> / <span id="quiz-input-total">0</span></div>
+        
+        <div class="quiz-prompt" id="quiz-input-prompt"></div>
+        
+        <div class="quiz-input-wrapper">
+          <input type="text" id="quiz-input-field" class="quiz-input" placeholder="Scrivi la traduzione..." autocomplete="off" autocapitalize="off" spellcheck="false">
+          <button id="btn-quiz-submit" class="btn btn-primary">Verifica</button>
+        </div>
+        
+        <div class="quiz-feedback hidden" id="quiz-input-feedback"></div>
+        
+        <div class="quiz-actions">
+          <button id="btn-quiz-input-next" class="btn btn-primary hidden">Avanti →</button>
+        </div>
+      </div>
+
+      <!-- Risultati finali -->
+      <div id="quiz-results" class="quiz-results hidden">
+        <div class="results-card">
+          <h3>Quiz completato! 🎉</h3>
+          <div class="results-score">
+            <span id="results-final-score">0</span> / <span id="results-total">0</span>
+          </div>
+          <div class="results-percentage" id="results-percentage">0%</div>
+          <div class="results-message" id="results-message"></div>
+          <div class="results-actions">
+            <button id="btn-quiz-retry" class="btn btn-primary">Riprova</button>
+            <button id="btn-quiz-home" class="btn btn-secondary">Home</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <footer style="text-align:center; padding: 20px 0 10px; font-size: 0.8rem; color: var(--muted);">
-    Versione 2.5.0 — Mazzi modulari con lazy-loading
+    Versione 3.0.0 — Flashcard + Quiz mode
   </footer>
 
   <!-- App come ES Module -->
