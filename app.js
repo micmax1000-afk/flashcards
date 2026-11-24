@@ -384,10 +384,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   function nextCard() {
     if (!currentDeck) return;
+    
+    // Salva progresso: l'utente conosceva la carta
+    const card = currentDeck.cards[currentIndex];
+    if (card && card.index !== undefined) {
+      updateCardProgress(currentDeck.id, card.index, true);
+    }
+    
     currentIndex++;
     if (currentIndex >= currentDeck.cards.length) {
       // Mazzo completato
-      alert("Complimenti! Hai completato il mazzo 🎉");
+      alert("Complimenti! Hai completato la sessione di ripasso 🎉");
       goHome();
       return;
     }
@@ -396,9 +403,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   function handleDontKnow() {
     if (!currentDeck) return;
+    
+    // Salva progresso: l'utente NON conosceva la carta
+    const card = currentDeck.cards[currentIndex];
+    if (card && card.index !== undefined) {
+      updateCardProgress(currentDeck.id, card.index, false);
+    }
+    
     // Sposta la carta corrente in fondo al mazzo per ripeterla
-    const card = currentDeck.cards.splice(currentIndex, 1)[0];
-    currentDeck.cards.push(card);
+    const cardObj = currentDeck.cards.splice(currentIndex, 1)[0];
+    currentDeck.cards.push(cardObj);
     loadCard();
   }
 
