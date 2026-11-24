@@ -304,9 +304,24 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
       currentDeck = await loadDeck(langId);
+      
+      // Carica progressi SRS per questo mazzo
+      currentProgress = loadDeckProgress(langId);
+      
+      // Filtra solo le carte da ripassare (due)
+      const dueCards = getDueCards(langId, currentDeck.cards);
+      
+      if (dueCards.length === 0) {
+        alert("Nessuna carta da ripassare ora! Torna più tardi. 🎉");
+        goHome();
+        return;
+      }
+      
+      // Usa solo le carte da ripassare
+      currentDeck.cards = dueCards;
       currentIndex = 0;
       isFlipped = false;
-      trainerTitle.textContent = `${currentDeck.flag} ${currentDeck.name}`;
+      trainerTitle.textContent = `${currentDeck.flag} ${currentDeck.name} (${dueCards.length} da ripassare)`;
 
       updateDeckCardCount(langId, currentDeck.cards.length);
       loadCard();
