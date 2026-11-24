@@ -2,7 +2,7 @@
 
 import { getDeckMetadata, loadDeck } from "./data/index.js";
 import { Capacitor } from "@capacitor/core";
-import { TextToSpeech } from "@capacitor/text-to-speech";
+import { TextToSpeech } from "@capacitor-community/text-to-speech";
 
 const isNative = Capacitor.isNativePlatform();
 
