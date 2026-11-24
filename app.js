@@ -592,6 +592,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     const isCorrect = selectedIndex === q.correctIndex;
     
+    // Salva progresso SRS
+    if (q.card && q.card.index !== undefined && currentDeck) {
+      updateCardProgress(currentDeck.id, q.card.index, isCorrect);
+    }
+    
     if (isCorrect) {
       btn.classList.add("correct");
       quizScore++;
