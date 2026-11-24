@@ -8,7 +8,8 @@
     "cap:add": "cap add android",
     "cap:copy": "cap copy android",
     "cap:open": "cap open android",
-    "cap:sync": "cap sync android"
+    "cap:sync": "cap sync android",
+    "cap:assets": "capacitor-assets generate --iconBackgroundColor '#3b82f6' --iconBackgroundColorDark '#1e40af'"
   },
   "keywords": [
     "flashcards",
@@ -20,7 +21,8 @@
   "license": "MIT",
   "devDependencies": {
     "@capacitor/cli": "^6.1.0",
-    "@capacitor/core": "^6.1.0"
+    "@capacitor/core": "^6.1.0",
+    "@capacitor/assets": "^3.0.0"
   },
   "dependencies": {
     "@capacitor/android": "^6.1.0"
