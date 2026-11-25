@@ -1,5 +1,5 @@
 /* Service Worker per Flashcards PWA */
-const CACHE_NAME = "flashcards-v3.2";
+const CACHE_NAME = "flashcards-v3.2.1";
 // Percorsi relativi: valgono sia alla radice del sito sia in una sottocartella (es. GitHub Pages /flashcards/)
 const ASSETS = [
   "./",
@@ -15,7 +15,9 @@ const ASSETS = [
   "icons/icon-192.svg",
   "icons/icon-512.svg",
   "icons/icon-512-maskable.svg",
-  "icons/apple-touch-icon.svg"
+  "icons/apple-touch-icon.svg",
+  "progress-init.js",
+  "progress-utils.js"
 ];
 
 // Install: cache degli asset statici. Ogni file è messo in cache da solo: se uno manca non si blocca tutta l'installazione

@@ -2,6 +2,14 @@
 
 import { getDeckMetadata, loadDeck } from "./data/index.js";
 
+const capacitorGlobal = typeof window !== "undefined" ? window.Capacitor : undefined;
+const isNative = !!(
+  capacitorGlobal &&
+  typeof capacitorGlobal.isNativePlatform === "function" &&
+  capacitorGlobal.isNativePlatform()
+);
+const TextToSpeech = isNative ? capacitorGlobal.Plugins && capacitorGlobal.Plugins.TextToSpeech : null;
+
 document.addEventListener("DOMContentLoaded", async () => {
   // ============ ELEMENTI DOM ============
   // Home
@@ -107,8 +115,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   function speakText(text, lang) {
     if (!text) return;
     
-    if (isNative) {
-      // Su Android/iOS usa il plugin nativo Capacitor TextToSpeech
+    if (isNative && TextToSpeech && typeof TextToSpeech.speak === "function") {
+      // Su Android/iOS usa il bridge nativo, senza import npm (rompe il webview)
       TextToSpeech.speak({
         text: text,
         lang: lang,

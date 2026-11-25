@@ -13,7 +13,7 @@ const PROGRESS_KEYS = [
 ];
 
 /** Esporta tutti i progressi in un file JSON scaricabile. */
-function exportProgress() {
+export function exportProgress() {
   const data = {};
   let something = false;
   for (const key of PROGRESS_KEYS) {
@@ -43,7 +43,7 @@ function exportProgress() {
 }
 
 /** Importa progressi da un file JSON selezionato dall'utente. */
-function importProgress(input) {
+export function importProgress(input) {
   const file = input.files && input.files[0];
   if (!file) return;
   const reader = new FileReader();
@@ -74,7 +74,7 @@ function importProgress(input) {
 }
 
 /** Resetta tutti i progressi (cancella le chiavi di localStorage). */
-function resetProgress() {
+export function resetProgress() {
   if (!confirm("Attenzione: questa operazione cancella tutti i progressi, lo streak e le parole personalizzate. Continuare?")) {
     return;
   }
