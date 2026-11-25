@@ -1,8 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" fill="#3b82f6"/>
-  <rect x="156" y="156" width="200" height="200" rx="24" fill="white"/>
-  <rect x="156" y="156" width="200" height="200" rx="24" fill="none" stroke="#e2e8f0" stroke-width="3"/>
-  <text x="256" y="284" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="120" font-weight="800" fill="#3b82f6" text-anchor="middle" dominant-baseline="central">F</text>
-  <path d="M306 156 L346 156 L306 196 Z" fill="#3b82f6" opacity="0.2"/>
-  <path d="M306 156 L346 156 L306 196 Z" fill="none" stroke="#3b82f6" stroke-width="3" opacity="0.5"/>
+  <rect width="512" height="512" fill="#0f6e6b"/>
+  <g transform="translate(256 256) scale(0.66) translate(-256 -256)">
+    <g transform="rotate(8 256 268)">
+      <rect x="148" y="118" width="216" height="276" rx="26" fill="#fffdf8"/>
+      <path d="M292 118h72v72z" fill="#eadfce"/>
+      <circle cx="206" cy="186" r="9" fill="#0f6e6b"/>
+      <rect x="190" y="214" width="132" height="14" rx="7" fill="#1c1915"/>
+      <rect x="190" y="244" width="100" height="14" rx="7" fill="#1c1915" opacity="0.72"/>
+      <rect x="190" y="274" width="72" height="14" rx="7" fill="#1c1915" opacity="0.4"/>
+    </g>
+  </g>
 </svg>

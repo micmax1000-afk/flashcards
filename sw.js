@@ -1,5 +1,5 @@
 /* Service Worker per Flashcards PWA */
-const CACHE_NAME = "flashcards-v3.3";
+const CACHE_NAME = "flashcards-v3.3.1";
 // Percorsi relativi: valgono sia alla radice del sito sia in una sottocartella (es. GitHub Pages /flashcards/)
 const ASSETS = [
   "./",

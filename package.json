@@ -9,7 +9,7 @@
     "cap:copy": "cap copy android",
     "cap:open": "cap open android",
     "cap:sync": "cap sync android",
-    "cap:assets": "capacitor-assets generate --iconBackgroundColor '#3b82f6' --iconBackgroundColorDark '#1e40af'"
+    "cap:assets": "capacitor-assets generate --iconBackgroundColor '#0f6e6b' --iconBackgroundColorDark '#083f3d'"
   },
   "keywords": [
     "flashcards",
