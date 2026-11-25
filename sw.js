@@ -1,5 +1,5 @@
 /* Service Worker per Flashcards PWA */
-const CACHE_NAME = "flashcards-v3";
+const CACHE_NAME = "flashcards-v3.2";
 // Percorsi relativi: valgono sia alla radice del sito sia in una sottocartella (es. GitHub Pages /flashcards/)
 const ASSETS = [
   "./",
@@ -44,36 +44,26 @@ self.addEventListener("activate", (event) => {
 
 // Fetch: strategia Cache First con fallback alla rete
 self.addEventListener("fetch", (event) => {
-  // Solo richieste GET
-  if (event.request.method !== "GET") return;
+  const request = event.request;
+  if (request.method !== "GET" || new URL(request.url).origin !== self.location.origin) return;
 
-  event.respondWith(
-    caches.match(event.request).then((cached) => {
-      if (cached) {
-        return cached;
+  event.respondWith((async () => {
+    const cache = await caches.open(CACHE_NAME);
+    try {
+      const fresh = await fetch(request);
+      if (fresh && fresh.ok) {
+        cache.put(request, fresh.clone()).catch(() => {});
+        return fresh;
       }
-      return fetch(event.request)
-        .then((response) => {
-          // Non mettere in cache risposte non valide o di altri origin
-          if (
-            !response ||
-            response.status !== 200 ||
-            response.type !== "basic"
-          ) {
-            return response;
-          }
-          const responseToCache = response.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseToCache);
-          });
-          return response;
-        })
-        .catch(() => {
-          // Offline e non in cache: per navigazioni torna index
-          if (event.request.mode === "navigate") {
-            return caches.match("index.html");
-          }
-        });
-    })
-  );
+      const cached = await cache.match(request);
+      return cached || fresh;
+    } catch (error) {
+      const cached = await cache.match(request);
+      if (cached) return cached;
+      if (request.mode === "navigate") {
+        return (await cache.match("index.html")) || (await cache.match("./"));
+      }
+      throw error;
+    }
+  })());
 });
