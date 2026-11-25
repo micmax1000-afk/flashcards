@@ -1,7 +1,27 @@
 // app.js — Logica Flashcards multilingua con flip 3D, ripetizione, auto-audio e modalità Quiz (ES Module)
 
 import { getDeckMetadata, loadDeck } from "./data/index.js";
-import { initTheme, toggleTheme } from "./theme.js";
+/* 
+  IMPORTANTE: Per evitare errori se theme.js manca (vecchi APK), 
+  definiamo fallback locali se l'import fallisce o non è pronto.
+*/
+const themeModule = {
+  initTheme: () => {
+    const savedTheme = localStorage.getItem("flashcards-theme");
+    if (savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
+  },
+  toggleTheme: () => {
+    const current = document.documentElement.getAttribute("data-theme") || "light";
+    const next = current === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("flashcards-theme", next);
+    return next;
+  }
+};
+
+// Se l'import non è disponibile, usiamo il fallback
+let { initTheme, toggleTheme } = typeof window.themeModule !== 'undefined' ? window : { initTheme: themeModule.initTheme, toggleTheme: themeModule.toggleTheme };
+
 
 const capacitorGlobal = typeof window !== "undefined" ? window.Capacitor : undefined;
 const isNative = !!(
