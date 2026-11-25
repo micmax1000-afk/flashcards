@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Flashcards – Impara le lingue</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <meta name="theme-color" content="#2563eb">
+  <meta name="theme-color" content="#0f6e6b">
   <meta name="description" content="Impara vocaboli con flashcard, pronuncia e quiz.">
   <link rel="icon" type="image/png" sizes="32x32" href="./icons/icon-192.png">
   <link rel="icon" type="image/svg+xml" href="./icons/icon-512.svg">
@@ -20,8 +20,9 @@
   <!-- Schermata Home / Selezione Mazzi -->
   <div id="home-screen" class="screen">
     <header class="app-header">
-      <h1>Flashcards 🌍</h1>
-      <p>Scegli la lingua e inizia ad allenarti</p>
+      <p class="eyebrow">Ripasso quotidiano</p>
+      <h1>Flashcards</h1>
+      <p>Scegli una lingua e gira le carte, a voce alta.</p>
     </header>
     <div id="deck-list" class="deck-grid"></div>
     <section class="data-tools" aria-label="Gestione progressi">
@@ -39,12 +40,14 @@
   <!-- Schermata Allenamento Flashcard -->
   <div id="trainer-screen" class="screen hidden">
     <header class="trainer-header">
-      <button id="btn-back" class="icon-btn">← Home</button>
-      <h2 id="trainer-title">Mazzo</h2>
+      <div class="trainer-top">
+        <button id="btn-back" class="icon-btn back-btn" type="button">Home</button>
+        <h2 id="trainer-title">Mazzo</h2>
+      </div>
       <div class="header-actions">
-        <button id="btn-auto-audio" class="icon-btn" title="Auto-audio: pronuncia automatica ogni carta" aria-pressed="false">🔈</button>
-        <button id="btn-audio" class="icon-btn" title="Ascolta pronuncia">🔊</button>
-        <button id="btn-mode-toggle" class="icon-btn" title="Cambia modalità: Flashcard ↔ Quiz" aria-pressed="false">🎯 Quiz</button>
+        <button id="btn-auto-audio" class="icon-btn" type="button" title="Pronuncia automatica" aria-pressed="false">Voce</button>
+        <button id="btn-audio" class="icon-btn" type="button" title="Ascolta pronuncia">Ascolta</button>
+        <button id="btn-mode-toggle" class="icon-btn" type="button" title="Passa al quiz" aria-pressed="false">Quiz</button>
       </div>
     </header>
 
@@ -69,8 +72,8 @@
         <div class="progress-bar"><div id="progress-fill"></div></div>
       </div>
       <div id="answer-buttons" class="answer-row hidden">
-        <button id="btn-dontknow" class="btn btn-danger">🔴 Non so</button>
-        <button id="btn-know" class="btn btn-success">🟢 So</button>
+        <button id="btn-dontknow" class="btn btn-danger" type="button">Non so</button>
+        <button id="btn-know" class="btn btn-success" type="button">La so</button>
       </div>
     </div>
   </div>
@@ -78,11 +81,13 @@
   <!-- Schermata Quiz -->
   <div id="quiz-screen" class="screen hidden">
     <header class="trainer-header">
-      <button id="btn-quiz-back" class="icon-btn">← Home</button>
-      <h2 id="quiz-title">Quiz</h2>
+      <div class="trainer-top">
+        <button id="btn-quiz-back" class="icon-btn back-btn" type="button">Home</button>
+        <h2 id="quiz-title">Quiz</h2>
+      </div>
       <div class="header-actions">
-        <button id="btn-quiz-audio" class="icon-btn" title="Ascolta pronuncia">🔊</button>
-        <button id="btn-quiz-mode-toggle" class="icon-btn" title="Cambia modalità: Quiz ↔ Flashcard" aria-pressed="true">🃏 Flashcard</button>
+        <button id="btn-quiz-audio" class="icon-btn" type="button" title="Ascolta pronuncia">Ascolta</button>
+        <button id="btn-quiz-mode-toggle" class="icon-btn" type="button" title="Torna alle flashcard" aria-pressed="true">Carte</button>
       </div>
     </header>
 
@@ -131,7 +136,7 @@
       <!-- Risultati finali -->
       <div id="quiz-results" class="quiz-results hidden">
         <div class="results-card">
-          <h3>Quiz completato! 🎉</h3>
+          <h3>Quiz completato</h3>
           <div class="results-score">
             <span id="results-final-score">0</span> / <span id="results-total">0</span>
           </div>
@@ -146,8 +151,8 @@
     </div>
   </div>
 
-  <footer style="text-align:center; padding: 20px 0 10px; font-size: 0.8rem; color: var(--muted);">
-    Versione 3.2.1 — Flashcard + Quiz mode
+  <footer class="app-footer">
+    Versione 3.3.0
   </footer>
 
   <!-- App come ES Module -->

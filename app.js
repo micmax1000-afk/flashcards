@@ -190,7 +190,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!btnAutoAudio) return;
     btnAutoAudio.classList.toggle("active", autoAudioEnabled);
     btnAutoAudio.setAttribute("aria-pressed", autoAudioEnabled);
-    btnAutoAudio.textContent = autoAudioEnabled ? "🔈" : "🔇";
+    btnAutoAudio.textContent = autoAudioEnabled ? "Voce" : "Muto";
     btnAutoAudio.title = autoAudioEnabled 
       ? "Auto-audio: ON (clicca per disattivare)" 
       : "Auto-audio: OFF (clicca per attivare)";
@@ -318,13 +318,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (btnModeToggle) {
       btnModeToggle.classList.toggle("active", isQuiz);
       btnModeToggle.setAttribute("aria-pressed", isQuiz);
-      btnModeToggle.textContent = isQuiz ? "🃏 Flashcard" : "🎯 Quiz";
+      btnModeToggle.textContent = isQuiz ? "Carte" : "Quiz";
       btnModeToggle.title = isQuiz ? "Passa a modalità Flashcard" : "Passa a modalità Quiz";
     }
     if (btnQuizModeToggle) {
       btnQuizModeToggle.classList.toggle("active", !isQuiz);
       btnQuizModeToggle.setAttribute("aria-pressed", !isQuiz);
-      btnQuizModeToggle.textContent = isQuiz ? "🃏 Flashcard" : "🎯 Quiz";
+      btnQuizModeToggle.textContent = isQuiz ? "Carte" : "Quiz";
       btnQuizModeToggle.title = isQuiz ? "Passa a modalità Flashcard" : "Passa a modalità Quiz";
     }
   }
@@ -345,7 +345,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (!badge) {
         badge = document.createElement("span");
         badge.className = "deck-count";
-        badge.style.cssText = "background:var(--accent);color:white;font-size:0.75rem;padding:2px 8px;border-radius:999px;font-weight:700;";
         card.querySelector(".deck-info").appendChild(badge);
       }
       badge.textContent = `${count} carte`;
