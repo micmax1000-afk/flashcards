@@ -766,6 +766,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Trainer: indietro
   btnBack.addEventListener("click", goHome);
 
+  // Theme toggle
+  if (btnTheme) {
+    btnTheme.addEventListener("click", toggleTheme);
+  }
+
   // Trainer: audio manuale (fronte o retro a seconda dello stato)
   btnAudio.addEventListener("click", () => {
     if (isFlipped) speakBackCard();
