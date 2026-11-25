@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Home
   const homeScreen = document.getElementById("home-screen");
   const deckListEl = document.getElementById("deck-list");
+  const btnTheme = document.getElementById("btn-theme");
 
   // Flashcard Trainer
   const trainerScreen = document.getElementById("trainer-screen");
