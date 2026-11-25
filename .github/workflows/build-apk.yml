@@ -25,21 +25,6 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Prepare icon for capacitor-assets
-        run: |
-          mkdir -p resources
-          cp icons/icon-512.png resources/icon.png
-
-      - name: Generate app icons and splash screens
-        run: npx capacitor-assets generate --iconBackgroundColor '#0f6e6b' --iconBackgroundColorDark '#083f3d'
-
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-          cache: 'gradle'
-
       - name: Prepare web assets
         run: |
           mkdir -p www
@@ -58,11 +43,23 @@ jobs:
         env:
           CI: true
 
-      - name: Copy web assets
-        run: npx cap copy android
-
       - name: Sync Capacitor
         run: npx cap sync android
+
+      - name: Install custom launcher icon
+        run: |
+          cp -a android-icon/res/. android/app/src/main/res/
+          rm -f android/app/src/main/res/drawable-v24/ic_launcher_foreground.xml
+          grep -q '#0f6e6b' android/app/src/main/res/values/ic_launcher_background.xml
+          test -s android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png
+          grep -q 'ic_launcher_foreground' android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
 
       - name: Build Debug APK
         run: |
