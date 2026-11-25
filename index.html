@@ -21,6 +21,16 @@
       <p>Scegli la lingua e inizia ad allenarti</p>
     </header>
     <div id="deck-list" class="deck-grid"></div>
+    <section class="data-tools" aria-label="Gestione progressi">
+      <h2>Progressi</h2>
+      <div class="data-tools-actions">
+        <button id="btn-export" class="btn btn-secondary" type="button">Esporta progressi</button>
+        <label class="btn btn-secondary" for="import-file">Importa progressi</label>
+        <input id="import-file" type="file" accept="application/json,.json" hidden>
+        <button id="btn-reset" class="btn btn-danger" type="button">Azzera progressi</button>
+      </div>
+      <p>Salva una copia dei tuoi progressi o ripristinala su un altro dispositivo.</p>
+    </section>
   </div>
 
   <!-- Schermata Allenamento Flashcard -->
@@ -134,15 +144,17 @@
   </div>
 
   <footer style="text-align:center; padding: 20px 0 10px; font-size: 0.8rem; color: var(--muted);">
-    Versione 3.0.0 — Flashcard + Quiz mode
+    Versione 3.1.0 — Flashcard + Quiz mode
   </footer>
 
   <!-- App come ES Module -->
   <script type="module" src="app.js"></script>
+  <script type="module" src="progress-init.js"></script>
   <script>
-    // Registra Service Worker
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js').catch(() => {});
+    // Registra il Service Worker rispettando anche le sottocartelle (GitHub Pages).
+    if ('serviceWorker' in navigator && location.protocol.startsWith('http') && !window.Capacitor?.isNativePlatform?.()) {
+      const swUrl = new URL('sw.js', document.baseURI);
+      navigator.serviceWorker.register(swUrl).catch(error => console.warn('Service Worker non registrato:', error));
     }
   </script>
 </body>
