@@ -1,6 +1,7 @@
 // app.js — Logica Flashcards multilingua con flip 3D, ripetizione, auto-audio e modalità Quiz (ES Module)
 
 import { getDeckMetadata, loadDeck } from "./data/index.js";
+import { initTheme, toggleTheme } from "./theme.js";
 
 const capacitorGlobal = typeof window !== "undefined" ? window.Capacitor : undefined;
 const isNative = !!(
@@ -92,22 +93,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   let quizAnswered = false;
 
   // ============ TEMA ============
-  function initTheme() {
-    const savedTheme = localStorage.getItem("flashcards-theme");
-    if (savedTheme) {
-      document.documentElement.setAttribute("data-theme", savedTheme);
-    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      document.documentElement.setAttribute("data-theme", "dark");
-    }
-  }
-
-  function toggleTheme() {
-    const currentTheme = document.documentElement.getAttribute("data-theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-    const newTheme = currentTheme === "dark" ? "light" : "dark";
-    document.documentElement.setAttribute("data-theme", newTheme);
-    localStorage.setItem("flashcards-theme", newTheme);
-  }
-
   initTheme();
 
   // ============ UTILITÀ AUDIO ============
