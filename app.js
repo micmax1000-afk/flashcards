@@ -1,6 +1,7 @@
 // app.js — Logica Flashcards multilingua con flip 3D, ripetizione, auto-audio e modalità Quiz (ES Module)
 
 import { getDeckMetadata, loadDeck } from "./data/index.js";
+import { initTheme, toggleTheme } from "./theme.js";
 
 const capacitorGlobal = typeof window !== "undefined" ? window.Capacitor : undefined;
 const isNative = !!(
@@ -15,6 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Home
   const homeScreen = document.getElementById("home-screen");
   const deckListEl = document.getElementById("deck-list");
+  const btnTheme = document.getElementById("btn-theme");
 
   // Flashcard Trainer
   const trainerScreen = document.getElementById("trainer-screen");
@@ -89,6 +91,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   let quizScore = 0;
   let quizQuestionType = "mc"; // "mc" = multiple choice, "input" = text input
   let quizAnswered = false;
+
+  // ============ TEMA ============
+  initTheme();
 
   // ============ UTILITÀ AUDIO ============
   let audioUnlocked = false;
@@ -765,6 +770,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Trainer: indietro
   btnBack.addEventListener("click", goHome);
+
+  // Theme toggle
+  if (btnTheme) {
+    btnTheme.addEventListener("click", toggleTheme);
+  }
 
   // Trainer: audio manuale (fronte o retro a seconda dello stato)
   btnAudio.addEventListener("click", () => {

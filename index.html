@@ -20,9 +20,12 @@
   <!-- Schermata Home / Selezione Mazzi -->
   <div id="home-screen" class="screen">
     <header class="app-header">
-      <p class="eyebrow">Ripasso quotidiano</p>
-      <h1>Flashcards</h1>
-      <p>Scegli una lingua e gira le carte, a voce alta.</p>
+      <div class="app-header-content">
+        <p class="eyebrow">Ripasso quotidiano</p>
+        <h1>Flashcards</h1>
+        <p>Scegli una lingua e gira le carte, a voce alta.</p>
+      </div>
+      <button id="btn-theme" class="theme-toggle" type="button" title="Cambia tema" aria-label="Cambia tema chiaro/scuro">🌓</button>
     </header>
     <div id="deck-list" class="deck-grid"></div>
     <section class="data-tools" aria-label="Gestione progressi">
@@ -41,13 +44,13 @@
   <div id="trainer-screen" class="screen hidden">
     <header class="trainer-header">
       <div class="trainer-top">
-        <button id="btn-back" class="icon-btn back-btn" type="button">Home</button>
+        <button id="btn-back" class="icon-btn back-btn" type="button" aria-label="Torna alla home">Home</button>
         <h2 id="trainer-title">Mazzo</h2>
       </div>
       <div class="header-actions">
-        <button id="btn-auto-audio" class="icon-btn" type="button" title="Pronuncia automatica" aria-pressed="false">Voce</button>
-        <button id="btn-audio" class="icon-btn" type="button" title="Ascolta pronuncia">Ascolta</button>
-        <button id="btn-mode-toggle" class="icon-btn" type="button" title="Passa al quiz" aria-pressed="false">Quiz</button>
+        <button id="btn-auto-audio" class="icon-btn" type="button" title="Pronuncia automatica" aria-pressed="false" aria-label="Attiva/disattiva pronuncia automatica">Voce</button>
+        <button id="btn-audio" class="icon-btn" type="button" title="Ascolta pronuncia" aria-label="Riproduci pronuncia">Ascolta</button>
+        <button id="btn-mode-toggle" class="icon-btn" type="button" title="Passa al quiz" aria-pressed="false" aria-label="Passa alla modalità quiz">Quiz</button>
       </div>
     </header>
 
