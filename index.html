@@ -2,12 +2,15 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>Flashcards</title>
+  <title>Flashcards – Impara le lingue</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <meta name="theme-color" content="#3b82f6">
-  <link rel="stylesheet" href="style.css">
-  <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="icons/apple-touch-icon.svg">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="description" content="Impara vocaboli con flashcard, pronuncia e quiz.">
+  <link rel="icon" type="image/png" sizes="32x32" href="./icons/icon-192.png">
+  <link rel="icon" type="image/svg+xml" href="./icons/icon-512.svg">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Flashcards">
@@ -148,8 +151,8 @@
   </footer>
 
   <!-- App come ES Module -->
-  <script type="module" src="app.js"></script>
-  <script type="module" src="progress-init.js"></script>
+  <script type="module" src="./app.js"></script>
+  <script type="module" src="./progress-init.js"></script>
   <script>
     // Registra il Service Worker rispettando anche le sottocartelle (GitHub Pages).
     if ('serviceWorker' in navigator && location.protocol.startsWith('http') && !window.Capacitor?.isNativePlatform?.()) {
