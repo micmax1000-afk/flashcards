@@ -100,6 +100,26 @@ h1, h2, h3, .card-text, .quiz-prompt, .results-score {
 .app-header h1 { font-size: 2.6rem; font-weight: 680; letter-spacing: -0.03em; line-height: 0.95; }
 .app-header p:last-child { margin-top: 10px; color: var(--muted); font-size: 1rem; text-wrap: pretty; max-width: 28ch; }
 
+/* ---------- CARD OGGI + STREAK ---------- */
+.today-card {
+  background: var(--accent); color: #fffdf8; border-radius: var(--radius);
+  padding: 18px 16px 16px; box-shadow: var(--shadow); position: relative; overflow: hidden;
+}
+.today-card::after { content: "✦"; position: absolute; right: 14px; top: 6px; font-size: 2.4rem; opacity: 0.18; }
+[data-theme="dark"] .today-card { color: var(--accent-ink); }
+.today-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.today-top h2 { font-size: 1.25rem; }
+.streak-pill { background: rgba(255,255,255,0.22); padding: 6px 10px; border-radius: 999px; font: 700 0.82rem/1 var(--font); white-space: nowrap; }
+[data-theme="dark"] .streak-pill { background: rgba(0,0,0,0.18); }
+.today-card p { margin-top: 8px; font-size: 0.92rem; opacity: 0.92; }
+.today-progress { margin-top: 14px; height: 10px; border-radius: 999px; background: rgba(255,255,255,0.28); overflow: hidden; }
+.today-progress-fill { height: 100%; width: 0%; border-radius: inherit; background: #fffdf8; transition: width 400ms ease; }
+[data-theme="dark"] .today-progress-fill { background: var(--accent-ink); }
+.btn-today { margin-top: 14px; width: 100%; min-height: 48px; border: 0; border-radius: 14px; background: #fffdf8; color: var(--accent-ink); font: 700 0.98rem/1 var(--font); }
+[data-theme="dark"] .btn-today { background: #f6f1e8; }
+.btn-today:active { transform: scale(0.98); }
+
+/* ---------- MAZZI ---------- */
 .deck-grid { display: flex; flex-direction: column; gap: 10px; }
 
 .deck-card {
