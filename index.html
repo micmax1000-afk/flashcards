@@ -8,6 +8,10 @@
   <meta name="description" content="Impara vocaboli con flashcard, pronuncia e quiz.">
   <link rel="icon" type="image/png" sizes="32x32" href="./icons/icon-192.png">
   <link rel="icon" type="image/svg+xml" href="./icons/icon-512.svg">
+  <!-- Font: preconnect + link al posto di @import in CSS, più veloce -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..700&family=Outfit:wght@400..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style.css">
   <link rel="manifest" href="./manifest.json">
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
@@ -21,12 +25,25 @@
   <div id="home-screen" class="screen">
     <header class="app-header">
       <div class="app-header-content">
+        <span class="badge-v3">V3 • Nuovo design</span>
         <p class="eyebrow">Ripasso quotidiano</p>
         <h1>Flashcards</h1>
         <p>Scegli una lingua e gira le carte, a voce alta.</p>
       </div>
       <button id="btn-theme" class="theme-toggle" type="button" title="Cambia tema" aria-label="Cambia tema chiaro/scuro">🌓</button>
     </header>
+
+    <!-- NOVITÀ V3: Card Oggi + streak. I valori si aggiornano con lo script in fondo alla pagina. -->
+    <section class="today-card" aria-label="Ripasso di oggi">
+      <div class="today-top">
+        <h2>Oggi</h2>
+        <span class="streak-pill" id="today-streak">🔥 Inizia oggi</span>
+      </div>
+      <p><strong id="today-due">— carte da ripassare</strong><br><span id="today-progress-text">Apri un mazzo per iniziare il ripasso.</span></p>
+      <div class="today-progress"><div class="today-progress-fill" id="today-progress-fill"></div></div>
+      <button class="btn-today" id="btn-today-continue" type="button">Continua il ripasso →</button>
+    </section>
+
     <div id="deck-list" class="deck-grid"></div>
     <section class="data-tools" aria-label="Gestione progressi">
       <h2>Progressi</h2>
@@ -48,20 +65,22 @@
         <h2 id="trainer-title">Mazzo</h2>
       </div>
       <div class="header-actions">
-        <button id="btn-auto-audio" class="icon-btn" type="button" title="Pronuncia automatica" aria-pressed="false" aria-label="Attiva/disattiva pronuncia automatica">Voce</button>
-        <button id="btn-audio" class="icon-btn" type="button" title="Ascolta pronuncia" aria-label="Riproduci pronuncia">Ascolta</button>
-        <button id="btn-mode-toggle" class="icon-btn" type="button" title="Passa al quiz" aria-pressed="false" aria-label="Passa alla modalità quiz">Quiz</button>
+        <button id="btn-auto-audio" class="icon-btn" type="button" title="Pronuncia automatica" aria-pressed="false" aria-label="Attiva/disattiva pronuncia automatica"><span class="ico" aria-hidden="true">🔊</span> Voce</button>
+        <button id="btn-audio" class="icon-btn" type="button" title="Ascolta pronuncia" aria-label="Riproduci pronuncia"><span class="ico" aria-hidden="true">🔊</span> Ascolta</button>
+        <button id="btn-mode-toggle" class="icon-btn" type="button" title="Passa al quiz" aria-pressed="false" aria-label="Passa alla modalità quiz"><span class="ico" aria-hidden="true">🧠</span> Quiz</button>
       </div>
     </header>
 
     <div class="card-container">
       <div id="flashcard" class="flashcard">
         <div class="card-face card-front">
+          <div class="card-top"><span class="card-pill" id="card-lang-pill">Italiano</span><span class="card-pill card-pill-soft">Fronte</span></div>
           <span id="card-emoji" class="card-emoji"></span>
           <div id="card-front-text" class="card-text"></div>
-          <span class="card-hint">Tocca per girare</span>
+          <span class="card-hint">Tocca per girare ↻</span>
         </div>
         <div class="card-face card-back">
+          <div class="card-top"><span class="card-pill" id="card-back-pill">Traduzione</span><span class="card-pill card-pill-soft" id="card-level-pill">Retro</span></div>
           <div id="card-back-text" class="card-text"></div>
           <div id="card-phon" class="card-phon"></div>
           <span class="card-hint">Rispondi sotto</span>
@@ -75,8 +94,8 @@
         <div class="progress-bar"><div id="progress-fill"></div></div>
       </div>
       <div id="answer-buttons" class="answer-row hidden">
-        <button id="btn-dontknow" class="btn btn-danger" type="button">Non so</button>
-        <button id="btn-know" class="btn btn-success" type="button">La so</button>
+        <button id="btn-dontknow" class="btn btn-danger" type="button"><span class="ico" aria-hidden="true">✕</span> Non so</button>
+        <button id="btn-know" class="btn btn-success" type="button"><span class="ico" aria-hidden="true">✓</span> La so</button>
       </div>
     </div>
   </div>
@@ -89,8 +108,8 @@
         <h2 id="quiz-title">Quiz</h2>
       </div>
       <div class="header-actions">
-        <button id="btn-quiz-audio" class="icon-btn" type="button" title="Ascolta pronuncia">Ascolta</button>
-        <button id="btn-quiz-mode-toggle" class="icon-btn" type="button" title="Torna alle flashcard" aria-pressed="true">Carte</button>
+        <button id="btn-quiz-audio" class="icon-btn" type="button" title="Ascolta pronuncia"><span class="ico" aria-hidden="true">🔊</span> Ascolta</button>
+        <button id="btn-quiz-mode-toggle" class="icon-btn" type="button" title="Torna alle flashcard" aria-pressed="true"><span class="ico" aria-hidden="true">🃏</span> Carte</button>
       </div>
     </header>
 
@@ -154,9 +173,7 @@
     </div>
   </div>
 
-  <footer class="app-footer">
-    Versione 3.3.0
-  </footer>
+  <footer class="app-footer">Versione 3.3.2 • Design v3</footer>
 
   <!-- App come ES Module -->
   <script type="module" src="./app.js"></script>
@@ -167,6 +184,73 @@
       const swUrl = new URL('sw.js', document.baseURI);
       navigator.serviceWorker.register(swUrl).catch(error => console.warn('Service Worker non registrato:', error));
     }
+  </script>
+  <script>
+    // NOVITÀ V3 — Solo grafica: card Oggi + barre di progresso sui mazzi.
+    // Legge gli stessi localStorage di app.js, non cambia nessun progresso.
+    (function () {
+      function readJSON(key) { try { return JSON.parse(localStorage.getItem(key) || 'null'); } catch { return null; } }
+      function updateToday() {
+        var dueEl = document.getElementById('today-due');
+        var txtEl = document.getElementById('today-progress-text');
+        var fillEl = document.getElementById('today-progress-fill');
+        var streakEl = document.getElementById('today-streak');
+        if (!dueEl) return;
+        var all = readJSON('flashcards_progress_v2') || {};
+        var now = Date.now(), due = 0, total = 0, known = 0;
+        Object.values(all).forEach(function (deck) {
+          Object.values(deck || {}).forEach(function (c) {
+            total++;
+            if (!c.nextReview || c.nextReview <= now) due++;
+            if ((c.level || 0) > 0) known++;
+          });
+        });
+        if (total === 0) {
+          dueEl.textContent = 'Inizia il tuo primo ripasso';
+          txtEl.textContent = 'Apri un mazzo per iniziare.';
+          fillEl.style.width = '0%';
+        } else {
+          dueEl.textContent = due + ' carte da ripassare';
+          txtEl.textContent = known + ' carte già imparate su ' + total + ' viste.';
+          fillEl.style.width = Math.round((known / total) * 100) + '%';
+        }
+        var streak = readJSON('flashcards_streak_v1');
+        var n = 0;
+        if (streak) { n = streak.streak || streak.count || streak.current || streak.days || 0; if (typeof streak === 'number') n = streak; }
+        streakEl.textContent = n > 0 ? '🔥 ' + n + ' giorni' : '🔥 Inizia oggi';
+      }
+      function enhanceDecks() {
+        var all = readJSON('flashcards_progress_v2') || {};
+        document.querySelectorAll('.deck-card').forEach(function (card) {
+          if (card.querySelector('.deck-progress')) return;
+          var id = card.dataset.langId;
+          var deck = all[id] || {};
+          var entries = Object.values(deck);
+          var known = entries.filter(function (c) { return (c.level || 0) > 0; }).length;
+          var pct = entries.length ? Math.round((known / entries.length) * 100) : 0;
+          var bar = document.createElement('div');
+          bar.className = 'deck-progress';
+          bar.innerHTML = '<div class="deck-progress-fill" style="width:' + pct + '%"></div>';
+          var title = card.querySelector('.deck-title');
+          if (title) {
+            var label = document.createElement('span');
+            label.textContent = entries.length ? known + ' imparate • ' + pct + '%' : 'Tocca per allenarti';
+            label.style.display = 'block'; label.style.marginTop = '2px';
+            title.appendChild(label);
+            title.appendChild(bar);
+          }
+        });
+        updateToday();
+      }
+      var btnToday = document.getElementById('btn-today-continue');
+      if (btnToday) btnToday.addEventListener('click', function () {
+        var first = document.querySelector('.deck-card');
+        if (first) first.click();
+      });
+      new MutationObserver(enhanceDecks).observe(document.getElementById('deck-list'), { childList: true });
+      updateToday();
+      setTimeout(enhanceDecks, 600);
+    })();
   </script>
 </body>
 </html>
